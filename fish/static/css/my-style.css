@@ -1,0 +1,18 @@
+body{
+    background-image: linear-gradient(20deg, rgb(176, 184, 230), rgb(55, 21, 60));
+    height: 100vh; /* Full viewport height */
+}
+
+.text-board{
+    justify-content: center;
+    text-align: center;
+    padding: 3vmin;
+    margin-top: 3vmin;
+    margin-left: 20vmin;
+    margin-right: 20vmin;
+    margin-bottom: 3vmin;
+    height: 80vmin;
+    border-radius: 2vmin;
+    color: white;
+    background-image: linear-gradient(to bottom, rgb(6, 0, 40), rgba(255, 255, 255, 0));
+}
