@@ -1,5 +1,6 @@
-# hackcamp-2024
+# How to launch
 
-EEEEEEEEEEEEEEEEEEEEEEEEEEE
-EEE - taylor
-- Keron
+In VS Code:
+ctrl+shift+P -> >Python: Create environment... -> venv
+in terminal, pip install -r requirements.txt
+then run flask
