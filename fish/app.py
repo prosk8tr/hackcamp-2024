@@ -1,6 +1,9 @@
-from flask import Flask, render_template, redirect 
+import db_connection
+from flask import Flask, render_template, redirect
 
 app = Flask(__name__)
+
+db = db_connection.db_connect()
 
 @app.route('/')
 def root():
