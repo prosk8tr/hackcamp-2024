@@ -14,8 +14,4 @@ class db_connect:
         results = []
         for repo in repos:
             results.append(repo)
-        return results
-
-
-class repository:
-    
+        return results    
