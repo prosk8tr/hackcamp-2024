@@ -13,7 +13,7 @@
         <!--<link rel="stylesheet" type="text/css" href=""> -->
     </head>
 
-    <body class="d-flex flex-column h-100"></body>
+    <body class="d-flex flex-column min-vh-100"></body>
 
         <header>
             <!-- Fixed navbar -->
@@ -24,13 +24,13 @@
                     <!-- Navigation Buttons-->
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                            <li class="nav-item">
+                            <li class="nav-item hover-button">
                                 <a class="nav-link active" aria-current="page" href="/home">Home</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item hover-button">
                                 <a class="nav-link active" aria-current="page" href="/page1">GitHub Metrics</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item hover-button">
                                 <a class="nav-link active" aria-current="page" href="/comparison">Comparisons</a>
                             </li>
                         </ul>
@@ -59,11 +59,10 @@
             <hr/>
             {% block content %}
             {% endblock %}
-
         </div>
     
-        <footer class="footer"> 
-            <div class="bg-dark" style="left: 0; bottom: 0; width: 100%; color: white; text-align: center; position: fixed;">
+        <footer class="footer mt-auto"> 
+            <div class="bg-dark" style="left: 0; width: 100%; color: white; text-align: center; position: relative;">
                 <div class="align-items-center">
                     <ul class="list-inline">
                         <li><h4>Links</h4></li>
