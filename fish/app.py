@@ -1,9 +1,12 @@
-import db_connection
+import models
 from flask import Flask, render_template, redirect
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
-db = db_connection.db_connect()
+db = models.db_connect()
 
 @app.route('/')
 def root():
