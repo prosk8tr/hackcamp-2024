@@ -38,3 +38,17 @@ body{
     color: white;
     line-height: 5vmin; /* Vertically centers text */
 }
+
+/* Responsive styling for smaller screens */
+@media (max-width: 768px) {
+    .text-board {
+        margin: 3vmin 10vmin; /* Reduce horizontal margin for tablets and small laptops */
+    }
+}
+
+@media (max-width: 576px) {
+    .text-board {
+        margin: 3vmin 5vmin; /* Further reduce horizontal margin for phones */
+        padding: 2vmin; /* Adjust padding for smaller screens */
+    }
+}
