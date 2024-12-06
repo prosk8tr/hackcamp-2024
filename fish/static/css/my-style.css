@@ -1,6 +1,6 @@
 body{
     background-image: linear-gradient(20deg, rgb(176, 184, 230), rgb(55, 21, 60));
-    height: 100vh; /* Full viewport height */
+    height: 100%; /* Full viewport height */
     display: flex;
     flex-direction: column;
     margin: 0;
@@ -22,6 +22,7 @@ body{
 }
 
 .hover-button{
+    cursor: pointer;
     border-radius: 1vmin;
     transition: 0.25s;
 }
@@ -32,12 +33,69 @@ body{
     box-shadow: 0px 0.5vmin 5px black;
 }
 
+.git-button{
+    text-align: left;
+    cursor: pointer;
+    margin: 1vmin;
+    margin-top: 2vmin;
+    height: 25vmin;
+    border-radius: 1vmin;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: large;   
+    transition: 0.25s;
+}
+    
+.git-button:hover{
+    transform: translateY(-0.5vmin);
+    box-shadow: 0px 0.5vmin 5px black;
+}
+
+.placeholder{
+    margin: 1vmin; 
+    height: 23vmin;
+    width: 30vmin;
+    border-radius: 1vmin;
+    background-color: rgb(255, 0, 0);
+    
+}
+
+.description{
+    font-family: 'consolas';
+    font-size: 1.6vmin;
+    line-height: 2vmin;
+    background-color: lightgray;
+    border-style: solid;
+    padding: 1vmin;
+    border-width: 2px;
+    height: 10vmin;
+    width: 100%;
+    border-radius: 1vmin;
+}
+
 .footer {
     height: 10vmin; /* Footer height */
     text-align: center;
     color: white;
     line-height: 5vmin; /* Vertically centers text */
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+/* Remove scrollbar track */
+::-webkit-scrollbar-track {
+    background-color: rgb(176, 184, 230);
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(6, 0, 40);
+    border-radius: 10px;
+  }
 
 /* Responsive styling for smaller screens */
 @media (max-width: 768px) {
