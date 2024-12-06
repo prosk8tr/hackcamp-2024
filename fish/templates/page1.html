@@ -20,125 +20,44 @@ Github Metrics
         </div>
     </div>
 
-    <!--Buttons-->
-    <div class = "git-button">
+   <!--Buttons-->
+   {% for i in range(3) %}
+   <a href="/metrics" style="text-decoration: none;">
+    <div class = "nav item git-button">
         <div class="container">
             <div class="row">
                 <div class="col-auto">
                     <div class="placeholder"></div>
                 </div>
-
-                <div class="col">
-                    <h2>Project Name:</h2>
-                    <h4>Owner:</h4>
+                
+                <div class="col-5">
+                    <h2><strong>Project Name:</strong></h2>
+                    <h4><strong>Owner:</strong></h4>
                     <div class="description">
                         <p>description of the thingof the thingof the thingof the thingof the thingof the thingof the thing <br>readme.MD goes here</p>
                     </div>
                 </div>
-
                 <div class="col">
                     <p>
                         Date Created: <br>
                         Commits: <br>
                         Last Commit: <br>
-                        Branches: <br>
                         Contibutors: <br>
                         Lines of Code:
                     </p>
                 </div>
-
+                <div class="col flex-column align-items-end" style="justify-content: flex-end;">
+                    <button href="music.com" class="btn btn-success hover-button" id="compare" style="float: right; margin-top: 130px;">Compare</button>
+                </div>
+                
             </div>
         </div>
+    </div> 
+    </a>
+    <div style="display: flex; justify-content: end;">
+       
     </div>
-
-    <div class = "git-button">
-        <div class="container">
-            <div class="row">
-                <div class="col-auto">
-                    <div class="placeholder"></div>
-                </div>
-
-                <div class="col">
-                    <h2>Project Name:</h2>
-                    <h4>Owner:</h4>
-                    <div class="description">
-                        <p>description of the thingof the thingof the thingof the thingof the thingof the thingof the thing <br>readme.MD goes here</p>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <p>
-                        Date Created: <br>
-                        Commits: <br>
-                        Last Commit: <br>
-                        Branches: <br>
-                        Contibutors: <br>
-                        Lines of Code:
-                    </p>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class = "git-button">
-        <div class="container">
-            <div class="row">
-                <div class="col-auto">
-                    <div class="placeholder"></div>
-                </div>
-
-                <div class="col">
-                    <h2>Project Name:</h2>
-                    <h4>Owner:</h4>
-                    <div class="description">
-                        <p>description of the thingof the thingof the thingof the thingof the thingof the thingof the thing <br>readme.MD goes here</p>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <p>
-                        Date Created: <br>
-                        Commits: <br>
-                        Last Commit: <br>
-                        Branches: <br>
-                        Contibutors: <br>
-                        Lines of Code:
-                    </p>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class = "git-button">
-        <div class="container">
-            <div class="row">
-                <div class="col-auto">
-                    <div class="placeholder"></div>
-                </div>
-
-                <div class="col">
-                    <h2>Project Name:</h2>
-                    <h4>Owner:</h4>
-                    <div class="description">
-                        <p>description of the thingof the thingof the thingof the thingof the thingof the thingof the thing <br>readme.MD goes here</p>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <p>
-                        Date Created: <br>
-                        Commits: <br>
-                        Last Commit: <br>
-                        Branches: <br>
-                        Contibutors: <br>
-                        Lines of Code:
-                    </p>
-                </div>
-
-            </div>
-        </div>
-    </div>
+    
+    {% endfor %}
 </div>
 {% endblock %}
