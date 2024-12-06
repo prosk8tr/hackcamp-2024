@@ -23,3 +23,7 @@ def page1():
 @app.route('/comparison')
 def comparison():
     return render_template("comparison.html")
+
+@app.route('/metrics')
+def metrics():
+    return render_template("metrics.html")
