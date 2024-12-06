@@ -25,10 +25,12 @@ class db_connect:
         pass
         #TODO everything
         
-    def get_files_from_repo(self, repo_name): #Only get files i.e. those that are not directories
+    def get_files_from_repo(self, repo_name):
         #Prepare the file path
-        root_folder = repo_name + "%"
-        SQL = "SELECT id, path, name, line_count, functional_line_count FROM files WHERE path LIKE (%s) AND is_directory='f';"
+        root_folder = repo_name + "%" #To search for any file path that starts with the repo name
+        #Only get files i.e. those that are not directories
+        #TODO change to REGEXP_LIKE?
+        SQL = "SELECT id, path, name, line_count, functional_line_count FROM files WHERE path LIKE (%s) AND is_directory='f';" 
 
 
 
