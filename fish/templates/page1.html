@@ -5,9 +5,59 @@ Github Metrics
 {% endblock %}
 
 {% block header %}
-<h1>TITLEEE"!!!</h1>
+<h3>GitHub Metric Data Visualisation</h3>
 {% endblock %}
 
 {% block content %}
-Page1
+<div class="container mt-4">
+    <!-- Search Box -->
+    <div class="row mb-3">
+        <div class="col-auto">
+            <div class="input-group">
+                <input type="text" class="form-control" id="search-input" placeholder="Search...">
+                <button class="btn btn-dark hover-button" id="search-button">Search</button>
+            </div>
+        </div>
+    </div>
+
+   <!--Buttons-->
+   {% for i in range(3) %}
+   <a href="/metrics" style="text-decoration: none;">
+    <div class = "nav item git-button">
+        <div class="container">
+            <div class="row">
+                <div class="col-auto">
+                    <div class="placeholder"></div>
+                </div>
+                
+                <div class="col-5">
+                    <h2><strong>Project Name:</strong></h2>
+                    <h4><strong>Owner:</strong></h4>
+                    <div class="description">
+                        <p>description of the thingof the thingof the thingof the thingof the thingof the thingof the thing <br>readme.MD goes here</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <p>
+                        Date Created: <br>
+                        Commits: <br>
+                        Last Commit: <br>
+                        Contibutors: <br>
+                        Lines of Code:
+                    </p>
+                </div>
+                <div class="col flex-column align-items-end" style="justify-content: flex-end;">
+                    <button href="music.com" class="btn btn-success hover-button" id="compare" style="float: right; margin-top: 130px;">Compare</button>
+                </div>
+                
+            </div>
+        </div>
+    </div> 
+    </a>
+    <div style="display: flex; justify-content: end;">
+       
+    </div>
+    
+    {% endfor %}
+</div>
 {% endblock %}

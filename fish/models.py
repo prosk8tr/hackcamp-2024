@@ -8,7 +8,7 @@ class db_connect:
         self.connection = psycopg.connect(self.url) #Open connection to the database
         self.cursor = self.connection.cursor() #This is what allows select queries
 
-    def get_all_repositories(self): #Used to get list of repositories for the view
+    def fetch_all_repositories(self): #Used to get list of repositories for the view
         SQL = """SELECT id, name, owner FROM repositories;"""
         self.cursor.execute(SQL)
         results = self.cursor.fetchall() #Do query
@@ -17,13 +17,20 @@ class db_connect:
 
         for result in results:
             row = [result[0],result[1],result[2]] #Make a list with the required values for the object attributes
-            new_repo = repo(*row) #Make a repository object 
-            print(new_repo.get_name()+new_repo.get_id()+new_repo.get_owner())
+            new_repo = repo(*row) #Make a repository object
             all_repositories.append(new_repo)
         return all_repositories
 
-        def get_files_from_repo(repo_name):
-            pass
+    def get_commits_from_repo(self, repo_name):
+        pass
+        #TODO everything
+        
+    def get_files_from_repo(self, repo_name): #Only get files i.e. those that are not directories
+        #Prepare the file path
+        root_folder = repo_name + "%"
+        SQL = "SELECT id, path, name, line_count, functional_line_count FROM files WHERE path LIKE (%s) AND is_directory='f';"
+
+
 
 class repo:
     def __init__(self, repo_id, name, owner):
@@ -41,9 +48,8 @@ class repo:
         return self.owner
 
 class repo_file:
-    def __init__(self, file_id, path, name, line_count, functional_line_count):
+    def __init__(self, file_id, name, line_count, functional_line_count):
         self.file_id = file_id
-        self.path = path
         self.name = name
         self.line_count = line_count
         self.functional_line_count = functional_line_count
@@ -72,9 +78,6 @@ class commit:
     
     def get_commit_id(self):
         return self.commit_id
-    
-    def get_name(self):
-        return self.name
     
     def get_author(self):
         return self.author
