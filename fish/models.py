@@ -13,7 +13,7 @@ class db_connect:
         self.cursor.execute(SQL)
         results = self.cursor.fetchall() #Do query
 
-        all_repositories = [] #Array of objects
+        all_repositories = [] #Array of repositories
 
         for result in results:
             row = [result[0],result[1],result[2]] #Make a list with the required values for the object attributes
@@ -26,11 +26,12 @@ class db_connect:
         #TODO everything
         
     def get_files_from_repo(self, repo_name):
+        pass #Add later
         #Prepare the file path
-        root_folder = repo_name + "%" #To search for any file path that starts with the repo name
+        #root_folder = repo_name + "%" #To search for any file path that starts with the repo name
         #Only get files i.e. those that are not directories
         #TODO change to REGEXP_LIKE?
-        SQL = "SELECT id, path, name, line_count, functional_line_count FROM files WHERE path LIKE (%s) AND is_directory='f';" 
+        #SQL = "SELECT id, path, name, line_count, functional_line_count FROM files WHERE path LIKE (%s) AND is_directory='f';" 
 
 
 
