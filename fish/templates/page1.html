@@ -4,6 +4,7 @@
 Github Metrics
 {% endblock %}
 
+
 {% block header %}
 <h3>GitHub Metric Data Visualisation</h3>
 {% endblock %}
@@ -20,8 +21,42 @@ Github Metrics
         </div>
     </div>
 
+    <!--im so so sorry-->
+    {% if selected_repo %}
+        <h2>Select repository to compare with</h2>
+    {% endif %}
+
    <!--Buttons-->
    {% for repo in repos %}
+
+   {% if selected_repo == repo.get_id() %}
+   <div class = "item git-selected">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-5">
+                <!--PROJECT NAME-->
+                <h2><strong>{{repo.get_name()}}</strong></h2>
+                <!--OWNER-->
+                <h4><strong>{{repo.get_owner()}}</strong></h4>
+            </div>
+                <div class="col" style="padding-left: 1vmin;">
+                    <p>
+                        Date Created: <br>
+                        Commits: <br>
+                        Last Commit: <br>
+                        Contibutors: <br>
+                        Lines of Code:
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div> 
+   {% endif %}
+
+    
+
+   {% if selected_repo != repo.get_id() %}
    <a href="/metrics" style="text-decoration: none;">
     <div class = "item git-button" href="/metrics">
         <div class="container">
@@ -50,19 +85,15 @@ Github Metrics
                     </p>
                 </div>
             </a>
-                <a href="music.com">
+                <a href="?repo={{repo.get_id()}}">
                 <div class="col flex-column align-items-end" style="justify-content: flex-end;">
-                    <button href="music.com" class="btn btn-success hover-button" id="compare" type="button"style="float: right; margin-top: 18vmin;">Compare</button>
+                    <button class="btn btn-success hover-button" id="compare" type="button"style="float: right; margin-top: 18vmin;">Compare</button>
                 </div>
-            </a>
+                </a>
             </div>
         </div>
     </div> 
-    
-    <div style="display: flex; justify-content: end;">
-       
-    </div>
-    
+    {% endif %}
     {% endfor %}
 </div>
 {% endblock %}
