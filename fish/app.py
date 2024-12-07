@@ -1,5 +1,5 @@
 import models
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, url_for
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -18,7 +18,7 @@ def root():
 def home():
     return render_template("index.html")
     
-@app.route('/page1')
+@app.route('/page1', methods=['GET', 'POST'])
 def page1():
     repos = db.fetch_all_repositories()
     selected_repo = ""
@@ -27,11 +27,17 @@ def page1():
         selected_repo=request.args['repo']
         repo_compare[0] = selected_repo
         #return redirect('/comparison')
+
+    if request.method == 'POST':
+        print(request.form['rep'])
+        repo_compare[1] = request.form['rep']
+        return redirect(url_for('comparison'))
+
     return render_template("page1.html", repos=repos, selected_repo=selected_repo)
 
 @app.route('/comparison')
 def comparison():
-    return render_template("comparison.html")
+    return render_template("comparison.html", repos=repo_compare)
 
 @app.route('/metrics')
 def metrics():
