@@ -21,26 +21,26 @@ class DbConnect:
             contributors = self.count_contributors_from_repo(result[0])
 
             row = [result[0],result[1],result[2],files,commits,contributors] #Make a list with the required values for the object attributes
-            new_repo = Respository(*row) #Make a repository object
+            new_repo = Repository(*row) #Make a repository object
             all_repositories.append(new_repo)
         return all_repositories
 
     def count_files_from_repo(self, repo_name):
         root_folder = repo_name + "%"
         SQL = "SELECT COUNT(id) FROM files WHERE path LIKE (%s) AND is_directory='f';"
-        self.cursor.execute(SQL, root_folder)
+        self.cursor.execute(SQL, (root_folder,))
         results = self.cursor.fetchone()
         return results
 
     def count_commits_from_repo(self, repo_id):
         SQL = "SELECT COUNT(id) FROM commits WHERE repository_id=(%s);"
-        self.cursor.execute(SQL, repo_id)
+        self.cursor.execute(SQL, (repo_id,))
         results = self.cursor.fetchone()
         return results
     
     def count_contributors_from_repo(self, repo_id):
         SQL="SELECT COUNT(DISTINCT author) FROM commits WHERE repository_id=(%s);"
-        self.cursor.execute(SQL, repo_id)
+        self.cursor.execute(SQL, (repo_id,))
         results = self.cursor.fetchone()
         return results
 
