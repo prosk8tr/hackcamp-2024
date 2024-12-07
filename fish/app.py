@@ -18,7 +18,8 @@ def home():
     
 @app.route('/page1')
 def page1():
-    return render_template("page1.html")
+    repos = db.fetch_all_repositories()
+    return render_template("page1.html", repos=repos)
 
 @app.route('/comparison')
 def comparison():

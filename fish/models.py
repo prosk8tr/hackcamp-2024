@@ -86,7 +86,7 @@ class commit:
         return self.author
     
     def get_repository_id(self):
-        return repository_id
+        return self.repository_id
 
 
 

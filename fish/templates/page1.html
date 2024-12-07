@@ -21,9 +21,9 @@ Github Metrics
     </div>
 
    <!--Buttons-->
-   {% for i in range(3) %}
+   {% for repo in repos %}
    <a href="/metrics" style="text-decoration: none;">
-    <div class = "item git-button">
+    <div class = "item git-button" href="/metrics">
         <div class="container">
             <div class="row">
                 <div class="col-auto">
@@ -31,13 +31,16 @@ Github Metrics
                 </div>
                 
                 <div class="col-5">
-                    <h2><strong>Project Name:</strong></h2>
-                    <h4><strong>Owner:</strong></h4>
+                    <!--PROJECT NAME-->
+                    <h2><strong>{{repo.get_name()}}</strong></h2>
+                    <!--OWNER-->
+                    <h4><strong>{{repo.get_owner()}}</strong></h4>
+                    <!--DESCRIPTION-->
                     <div class="description">
                         <p>description of the thingof the thingof the thingof the thingof the thingof the thingof the thing <br>readme.MD goes here</p>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col" style="padding-left: 1vmin;">
                     <p>
                         Date Created: <br>
                         Commits: <br>
@@ -46,14 +49,18 @@ Github Metrics
                         Lines of Code:
                     </p>
                 </div>
+            </a>
+
+                <form method="post">
                 <div class="col flex-column align-items-end" style="justify-content: flex-end;">
                     <button href="music.com" class="btn btn-success hover-button" id="compare" style="float: right; margin-top: 18vmin;">Compare</button>
                 </div>
+                </form>
                 
             </div>
         </div>
     </div> 
-    </a>
+    
     <div style="display: flex; justify-content: end;">
        
     </div>
