@@ -16,56 +16,47 @@ class DbConnect:
         all_repositories = [] #Array of repositories
 
         for result in results:
-            files = self.count_files_from_repo(result[1])
-            commits = self.count_commits_from_repo(result[0])
-            contributors = self.count_contributors_from_repo(result[0])
-
-            row = [result[0],result[1],result[2],files,commits,contributors] #Make a list with the required values for the object attributes
+            row = [result[0],result[1],result[2]] #Make a list with the required values for the object attributes
             new_repo = Repository(*row) #Make a repository object
             all_repositories.append(new_repo)
         return all_repositories
 
-    def count_files_from_repo(self, repo_name):
-        root_folder = repo_name + "%"
-        SQL = "SELECT COUNT(id) FROM files WHERE path LIKE (%s) AND is_directory='f';"
-        self.cursor.execute(SQL, (root_folder,))
-        results = self.cursor.fetchone()
-        return results
+    def fetch_commits_from_repo(self, repo_id):
+        SQL = "SELECT id, author, repository_id FROM commits where repository_id=(%s);"
+        self.cursor.execute(SQL,(repo_id,))
+        results = self.cursor.fetchall() #Do query
 
-    def count_commits_from_repo(self, repo_id):
-        SQL = "SELECT COUNT(id) FROM commits WHERE repository_id=(%s);"
-        self.cursor.execute(SQL, (repo_id,))
-        results = self.cursor.fetchone()
-        return results
-    
-    def count_contributors_from_repo(self, repo_id):
-        SQL="SELECT COUNT(DISTINCT author) FROM commits WHERE repository_id=(%s);"
-        self.cursor.execute(SQL, (repo_id,))
-        results = self.cursor.fetchone()
-        return results
+        commits = [] #Array of repositories
 
-    def get_commits_from_repo(self, repo_name):
-        pass
-        #TODO everything
+        for result in results:
+            row = [result[0],result[1],result[2]] #Make a list with the required values for the object attributes
+            new_commit = Commit(*row) #Make a repository object
+            commits.append(new_commit)
+        return commits
         
-    def get_files_from_repo(self, repo_name):
-        pass #Add later
+    def fetch_files_from_repo(self, repo_name):
         #Prepare the file path
-        #root_folder = repo_name + "%" #To search for any file path that starts with the repo name
+        root_folder = repo_name + "%" #To search for any file path that starts with the repo name
         #Only get files i.e. those that are not directories
-        #TODO change to REGEXP_LIKE?
-        #SQL = "SELECT id, path, name, line_count, functional_line_count FROM files WHERE path LIKE (%s) AND is_directory='f';" 
+        SQL = "SELECT id, path, name, line_count, functional_line_count FROM files WHERE path LIKE (%s) AND is_directory='f';" 
+        self.cursor.execute(SQL)
+        results = self.cursor.fetchall() #Do query
+
+        files = [] #Array of repositories
+
+        for result in results:
+            row = [result[0],result[1],result[2],result[3],result[4]] #Make a list with the required values for the object attributes
+            new_file = RepoFile(*row) #Make a repository object
+            files.append(new_file)
+        return files
 
 
 
 class Repository:
-    def __init__(self, repo_id, name, owner, files_count, commits_count, contributors_count):
+    def __init__(self, repo_id, name, owner):
         self.repo_id = repo_id
         self.name = name
         self.owner = owner
-        self.files_count = files_count
-        self.commits_count = commits_count
-        self.contributors_count = contributors_count
     
     def get_id(self):
         return self.repo_id
@@ -75,15 +66,6 @@ class Repository:
 
     def get_owner(self):
         return self.owner
-
-    def get_files_count(self):
-        return self.files_count
-    
-    def get_commits_count(self):
-        return self.commits_count
-    
-    def get_contributors_count(self):
-        return self.contributors_count
         
 
 class RepoFile:
@@ -109,9 +91,8 @@ class RepoFile:
         return self.functional_line_count
 
 class Commit:
-    def __init__(self, commit_id, name, author, repository_id):
+    def __init__(self, commit_id, author, repository_id):
         self.commit_id = commit_id
-        self.name = name
         self.author = author
         self.repository_id = repository_id
     

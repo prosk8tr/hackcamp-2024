@@ -33,7 +33,7 @@ def page1():
         repo_compare[1] = request.form['rep']
         return redirect(url_for('comparison'))
 
-    return render_template("page1.html", repos=repos, selected_repo=selected_repo)
+    return render_template("page1.html", repos=repos)
 
 @app.route('/comparison')
 def comparison():
