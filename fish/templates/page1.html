@@ -27,18 +27,18 @@ Github Metrics
     {% endif %}
 
    <!--Buttons-->
-   {% for repo in repos %}
+   {% for index, repo in repos.iterrows() %}
 
-   {% if selected_repo == repo.get_id() %}
+   {% if selected_repo == repo['id'] %}
    <div class = "item git-selected">
         <div class="container">
             <div class="row">
                 
                     <div class="col-5">
                         <!--PROJECT NAME-->
-                        <h2><strong>{{repo.get_name()}}</strong></h2>
+                        <h2><strong>{{repo['name']}}</strong></h2>
                         <!--OWNER-->
-                        <h4><strong>{{repo.get_owner()}}</strong></h4>
+                        <h4><strong>{{repo['owner']}}</strong></h4>
                     </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@ Github Metrics
 
     
 
-   {% if selected_repo != repo.get_id() %}
+   {% if selected_repo != repo['id'] %}
    {% if not selected_repo %}
    <a href="/metrics" style="text-decoration: none;">
     <div class = "item git-button" href="/metrics">
@@ -61,9 +61,9 @@ Github Metrics
                 
                 <div class="col-5">
                     <!--PROJECT NAME-->
-                    <h2><strong>{{repo.get_name()}}</strong></h2>
+                    <h2><strong>{{repo['name']}}</strong></h2>
                     <!--OWNER-->
-                    <h4><strong>{{repo.get_owner()}}</strong></h4>
+                    <h4><strong>{{repo['owner']}}</strong></h4>
                     <!--DESCRIPTION-->
                     <div class="description">
                         <p>description of the thingof the thingof the thingof the thingof the thingof the thingof the thing <br>readme.MD goes here</p>
@@ -82,7 +82,7 @@ Github Metrics
             
     {% else %}
             <form method="POST" class="item git-button">
-                <button type="submit" name="rep" value="{{repo.get_id()}}" style="display: contents;" class ="item git-button">
+                <button type="submit" name="rep" value="{{repo['id']}}" style="display: contents;" class ="item git-button">
                     <div class="container">
                         <div class="row">
                             <div class="col-auto">
@@ -91,9 +91,9 @@ Github Metrics
                             
                             <div class="col-5">
                                 <!--PROJECT NAME-->
-                                <h2><strong>{{repo.get_name()}}</strong></h2>
+                                <h2><strong>{{repo['name']}}</strong></h2>
                                 <!--OWNER-->
-                                <h4><strong>{{repo.get_owner()}}</strong></h4>
+                                <h4><strong>{{repo['owner']}}</strong></h4>
                                 <!--DESCRIPTION-->
                                 <div class="description">
                                     <p>description of the thingof the thingof the thingof the thingof the thingof the thingof the thing <br>readme.MD goes here</p>
@@ -117,7 +117,7 @@ Github Metrics
                 if we're doing a comparison remove the compare button
                 the user will just need to click the thingy-->
                 {% if not selected_repo %}
-                <a href="?repo={{repo.get_id()}}">
+                <a href="?repo={{repo['id']}}">
                 <div class="col flex-column align-items-end" style="justify-content: flex-end;">
                     <button class="btn btn-success hover-button" id="compare" type="button"style="float: right; margin-top: 18vmin;">Compare</button>
                 </div>

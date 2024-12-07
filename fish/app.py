@@ -7,6 +7,7 @@ load_dotenv()
 app = Flask(__name__)
 
 db = models.DbConnect()
+graph_drawer = models.GraphDrawer()
 
 repo_compare = ["", ""]
 
@@ -21,24 +22,14 @@ def home():
 @app.route('/page1', methods=['GET', 'POST'])
 def page1():
     repos = db.fetch_all_repositories()
-    selected_repo = ""
-    #im so sorry
-    if 'repo' in request.args:
-        selected_repo=request.args['repo']
-        repo_compare[0] = selected_repo
-        #return redirect('/comparison')
-
-    if request.method == 'POST':
-        print(request.form['rep'])
-        repo_compare[1] = request.form['rep']
-        return redirect(url_for('comparison'))
-
     return render_template("page1.html", repos=repos)
 
 @app.route('/comparison')
 def comparison():
-    return render_template("comparison.html", repos=repo_compare)
+    return render_template("comparison.html", repos=repo_compare) #TODO: fix comparison.html, it doesn't inherit from template.html for some reason
 
 @app.route('/metrics')
 def metrics():
-    return render_template("metrics.html")
+    all_files = db.fetch_files_from_repo('Cobol2XML')#TODO: get the repository name from the view
+    converted_graph = graph_drawer.draw_file_size(all_files)
+    return render_template("metrics.html",bar_graph=converted_graph)
