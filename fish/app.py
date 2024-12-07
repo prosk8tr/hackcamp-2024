@@ -6,7 +6,7 @@ load_dotenv()
 
 app = Flask(__name__)
 
-db = models.db_connect()
+db = models.DbConnect()
 
 @app.route('/')
 def root():

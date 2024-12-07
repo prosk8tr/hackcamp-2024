@@ -1,7 +1,7 @@
 import os
 import psycopg
 
-class db_connect:
+class DbConnect:
     def __init__(self):
         #Class variables are shared between every instance of a class.
         self.url = os.getenv("DATABASE_URL") #Get the URL of the database in the .env config
@@ -16,10 +16,33 @@ class db_connect:
         all_repositories = [] #Array of repositories
 
         for result in results:
-            row = [result[0],result[1],result[2]] #Make a list with the required values for the object attributes
-            new_repo = repo(*row) #Make a repository object
+            files = self.count_files_from_repo(result[1])
+            commits = self.count_commits_from_repo(result[0])
+            contributors = self.count_contributors_from_repo(result[0])
+
+            row = [result[0],result[1],result[2],files,commits,contributors] #Make a list with the required values for the object attributes
+            new_repo = Respository(*row) #Make a repository object
             all_repositories.append(new_repo)
         return all_repositories
+
+    def count_files_from_repo(self, repo_name):
+        root_folder = repo_name + "%"
+        SQL = "SELECT COUNT(id) FROM files WHERE path LIKE (%s) AND is_directory='f';"
+        self.cursor.execute(SQL, root_folder)
+        results = self.cursor.fetchone()
+        return results
+
+    def count_commits_from_repo(self, repo_id):
+        SQL = "SELECT COUNT(id) FROM commits WHERE repository_id=(%s);"
+        self.cursor.execute(SQL, repo_id)
+        results = self.cursor.fetchone()
+        return results
+    
+    def count_contributors_from_repo(self, repo_id):
+        SQL="SELECT COUNT(DISTINCT author) FROM commits WHERE repository_id=(%s);"
+        self.cursor.execute(SQL, repo_id)
+        results = self.cursor.fetchone()
+        return results
 
     def get_commits_from_repo(self, repo_name):
         pass
@@ -35,11 +58,14 @@ class db_connect:
 
 
 
-class repo:
-    def __init__(self, repo_id, name, owner):
+class Repository:
+    def __init__(self, repo_id, name, owner, files_count, commits_count, contributors_count):
         self.repo_id = repo_id
         self.name = name
         self.owner = owner
+        self.files_count = files_count
+        self.commits_count = commits_count
+        self.contributors_count = contributors_count
     
     def get_id(self):
         return self.repo_id
@@ -50,7 +76,17 @@ class repo:
     def get_owner(self):
         return self.owner
 
-class repo_file:
+    def get_files_count(self):
+        return self.files_count
+    
+    def get_commits_count(self):
+        return self.commits_count
+    
+    def get_contributors_count(self):
+        return self.contributors_count
+        
+
+class RepoFile:
     def __init__(self, file_id, name, line_count, functional_line_count):
         self.file_id = file_id
         self.name = name
@@ -72,7 +108,7 @@ class repo_file:
     def get_functional_line_count(self):
         return self.functional_line_count
 
-class commit:
+class Commit:
     def __init__(self, commit_id, name, author, repository_id):
         self.commit_id = commit_id
         self.name = name
