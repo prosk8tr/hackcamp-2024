@@ -72,7 +72,7 @@ a:hover{
     cursor: pointer;
     margin: 1vmin;
     margin-top: 2vmin;
-    height: 25vmin;
+    height: 15vmin;
     border-radius: 1vmin;
     padding: 1vmin;
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.912), rgba(252, 236, 255, 0.523));
