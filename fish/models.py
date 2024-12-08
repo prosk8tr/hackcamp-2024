@@ -57,3 +57,4 @@ class DbConnect:
             columns.append(col[0])
         all_commits = pandas.DataFrame(data=results,columns=columns)
         return all_commits
+    
