@@ -16,10 +16,39 @@ class GraphDrawer:
         # Create Bar chart
         fig = px.bar(df, x=df.index, y='count',  barmode='group')
         #TODO: find a way to make the axis names look less python-y
-        
+        fig.update_layout(
+            {
+                "paper_bgcolor": "rgba(0, 0, 0, 0)",
+                "plot_bgcolor": "rgba(0, 0, 0, 0)",
+                "font_color":"white",
+            }
+        )
 
         return fig.to_html() #return as html string, so it can be used in the view
         #TODO:switch between functional line count and all line count
+
+    def draw_commit_authors(self,commits):
+        fig = px.pie(commits, values='id', names='author', title='Commits Made')
+        fig.update_layout(
+            {
+                "paper_bgcolor": "rgba(0, 0, 0, 0)",
+                "plot_bgcolor": "rgba(0, 0, 0, 0)",
+                "font_color":"white",
+            }
+        )
+        return fig.to_html()
+    
+    def draw_commit_history(self,commits):
+        fig = px.histogram(commits, x="date")
+        fig.update_traces(xbins_size="M1")
+        fig.update_layout(
+            {
+                "paper_bgcolor": "rgba(0, 0, 0, 0)",
+                "plot_bgcolor": "rgba(0, 0, 0, 0)",
+                "font_color":"white",
+            }
+        )
+        return fig.to_html()
 
 class DbConnect:
     def __init__(self):
@@ -60,7 +89,7 @@ class DbConnect:
         return all_files
 
     def fetch_commits_from_repo(self, repo_id):
-        SQL = "SELECT id, author, repository_id FROM commits where repository_id=(%s);"
+        SQL = "SELECT id, author, date, repository_id FROM commits where repository_id=(%s);"
         self.cursor.execute(SQL,(repo_id,))
         results = self.cursor.fetchall() #Do query
 

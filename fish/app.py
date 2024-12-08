@@ -31,6 +31,9 @@ def comparison():
 
 @app.route('/metrics')
 def metrics():
-    all_files = db.fetch_files_from_repo('github-285892219')#TODO: get the repository name from the view
+    all_files = db.fetch_files_from_repo('github-168152007')#TODO: get the repository name from the view
+    all_commits = db.fetch_commits_from_repo('github-168152007')
     converted_graph = graph_drawer.draw_file_size(all_files)
-    return render_template("metrics.html",bar_graph=converted_graph)
+    converted_pie = graph_drawer.draw_commit_authors(all_commits)
+    converted_histogram = graph_drawer.draw_commit_history(all_commits)
+    return render_template("metrics.html",bar_graph=converted_graph,pie_chart=converted_pie,histogram=converted_histogram)
