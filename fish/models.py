@@ -6,8 +6,17 @@ import plotly.express as px
 
 class GraphDrawer:
     def draw_file_size(self,files): #draws a bar chart of the size of every file.
+        #prepare the data; group into categories
+        bins = pandas.cut(files['line_count'], [0,50,100,500,1000])
+        count = bins.value_counts()
+        count=count.sort_index(ascending=True)
+        df=pandas.DataFrame(count, columns=['count'])
+        df.index=df.index.astype(str)#so it can be turned into html string
+        
         # Create Bar chart
-        fig = px.bar(files, x='name', y='line_count', color='name', barmode='group') #TODO: find a way to make the axis names look less python-y
+        fig = px.bar(df, x=df.index, y='count',  barmode='group')
+        #TODO: find a way to make the axis names look less python-y
+        
 
         return fig.to_html() #return as html string, so it can be used in the view
         #TODO:switch between functional line count and all line count
@@ -38,12 +47,10 @@ class DbConnect:
         return all_repos
     
 
-    def fetch_files_from_repo(self, repo_name):
-        #Prepare the file path
-        root_folder = repo_name + "%" #To search for any file path that starts with the repo name
-        #Only get files i.e. those that are not directories
-        SQL = "SELECT id, path, name, line_count, functional_line_count FROM files WHERE path LIKE (%s) AND is_directory='f';" 
-        self.cursor.execute(SQL,(root_folder,))
+    def fetch_files_from_repo(self, repo_id):
+        #Prepare the file path#
+        SQL = "SELECT id, path, name, line_count, functional_line_count FROM files WHERE branch_id=(SELECT id FROM branches WHERE branches.repository_id=(%s)) AND is_directory='f';" 
+        self.cursor.execute(SQL,(repo_id,))
         results = self.cursor.fetchall() #Do query
 
         columns = []
