@@ -31,6 +31,6 @@ def comparison():
 
 @app.route('/metrics')
 def metrics():
-    all_files = db.fetch_files_from_repo('Cobol2XML')#TODO: get the repository name from the view
+    all_files = db.fetch_files_from_repo('github-285892219')#TODO: get the repository name from the view
     converted_graph = graph_drawer.draw_file_size(all_files)
     return render_template("metrics.html",bar_graph=converted_graph)
