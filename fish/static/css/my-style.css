@@ -51,6 +51,14 @@ a:hover{
     cursor: pointer;
     border-radius: 1vmin;
     transition: 0.25s;
+
+    text-align: center; /* Centers text horizontally */
+    display: inline-flex; /* Enables flex for better centering */
+    justify-content: center; /* Centers text horizontally */
+    align-items: center; /* Centers text vertically */
+    height: 5vmin; /* Define height to prevent size shrinking */
+    min-width: 15vmin; /*Define minimum width for consistent size */
+    margin-left: 1vmin; /*small margin to seperate from nav bar title*/
 }
     
 .hover-button:hover{

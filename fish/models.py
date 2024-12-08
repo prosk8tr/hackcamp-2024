@@ -12,8 +12,6 @@ class GraphDrawer:
         return fig.to_html() #return as html string, so it can be used in the view
         #TODO:switch between functional line count and all line count
 
-
-
 class DbConnect:
     def __init__(self):
         #Class variables are shared between every instance of a class.
@@ -22,7 +20,8 @@ class DbConnect:
         self.cursor = self.connection.cursor() #This is what allows select queries
 
     def fetch_all_repositories(self):
-        self.cursor.execute("""SELECT id, name, owner, 
+
+        self.cursor.execute("""SELECT id, name, owner, modified_at, 
         (SELECT COUNT(commits.id) AS commit_count FROM commits WHERE repositories.id=commits.repository_id), 
         (SELECT COUNT(DISTINCT author) AS contributor_count FROM commits WHERE repositories.id=commits.repository_id), 
         (SELECT COUNT(files.id) AS file_count FROM files WHERE is_directory='f' 
@@ -35,7 +34,9 @@ class DbConnect:
             columns.append(col[0])
 
         all_repos = pandas.DataFrame(data=results,columns=columns) #makes a dataframe with the query results as data and column names
+        all_repos['modified_at'] = pandas.to_datetime(all_repos['modified_at']).dt.strftime('%Y-%m-%d %H:%M:%S') #Change the format displayed for the modified_at data
         return all_repos
+    
 
     def fetch_files_from_repo(self, repo_name):
         #Prepare the file path
@@ -61,3 +62,4 @@ class DbConnect:
             columns.append(col[0])
         all_commits = pandas.DataFrame(data=results,columns=columns)
         return all_commits
+    

@@ -4,7 +4,6 @@
 Github Metrics
 {% endblock %}
 
-
 {% block header %}
 <h3>GitHub Metric Data Visualisation</h3>
 {% endblock %}
@@ -23,109 +22,94 @@ Github Metrics
 
     <!--im so so sorry-->
     {% if selected_repo %}
-        <h2>Select repository to compare with</h2>
+    <h2>Select repository to compare with</h2>
     {% endif %}
 
-   <!--Buttons-->
-   {% for index, repo in repos.iterrows() %}
-
-   {% if selected_repo == repo['id'] %}
-   <div class = "item git-selected">
+    <!--Buttons-->
+    {% for index, repo in repos.iterrows() %}
+    {% if selected_repo == repo['id'] %}
+    <div class="item git-selected">
         <div class="container">
             <div class="row">
-                
-                    <div class="col-5">
-                        <!--PROJECT NAME-->
-                        <h2><strong>{{repo['name']}}</strong></h2>
-                        <!--OWNER-->
-                        <h4><strong>{{repo['owner']}}</strong></h4>
-                    </div>
-                    </div>
-                </div>
-            </div> 
-        </div>
-    </div>
-   {% endif %}
-
-    
-
-   {% if selected_repo != repo['id'] %}
-   {% if not selected_repo %}
-   <a href="/metrics" style="text-decoration: none;">
-    <div class = "item git-button" href="/metrics">
-        <div class="container">
-            <div class="row">
-                <div class="col-auto">
-                    <div class="placeholder"></div>
-                </div>
-                
                 <div class="col-5">
                     <!--PROJECT NAME-->
                     <h2><strong>{{repo['name']}}</strong></h2>
                     <!--OWNER-->
                     <h4><strong>{{repo['owner']}}</strong></h4>
-                    <!--DESCRIPTION-->
-                    <div class="description">
-                        <p>description of the thingof the thingof the thingof the thingof the thingof the thingof the thing <br>readme.MD goes here</p>
-                    </div>
                 </div>
-                <div class="col" style="padding-left: 1vmin;">
-                    <p>
-                        Date Created: <br>
-                        Commits: <br>
-                        Last Commit: <br>
-                        Contibutors: <br>
-                        Lines of Code:
-                    </p>
-                </div>
-            </a>
-            
-    {% else %}
-            <form method="POST" class="item git-button">
-                <button type="submit" name="rep" value="{{repo['id']}}" style="display: contents;" class ="item git-button">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-auto">
-                                <div class="placeholder"></div>
-                            </div>
-                            
-                            <div class="col-5">
-                                <!--PROJECT NAME-->
-                                <h2><strong>{{repo['name']}}</strong></h2>
-                                <!--OWNER-->
-                                <h4><strong>{{repo['owner']}}</strong></h4>
-                                <!--DESCRIPTION-->
-                                <div class="description">
-                                    <p>description of the thingof the thingof the thingof the thingof the thingof the thingof the thing <br>readme.MD goes here</p>
-                                </div>
-                            </div>
-                            <div class="col" style="padding-left: 1vmin;">
-                                <p>
-                                    Date Created: <br>
-                                    Commits: <br>
-                                    Last Commit: <br>
-                                    Contibutors: <br>
-                                    Lines of Code:
-                                </p>
-                        </div>
-                    </div>
-                </button>
-            </form>
-    {% endif %}
-                <!--please understand why im doing this
-                im doing my best
-                if we're doing a comparison remove the compare button
-                the user will just need to click the thingy-->
-                {% if not selected_repo %}
-                <a href="?repo={{repo['id']}}">
-                <div class="col flex-column align-items-end" style="justify-content: flex-end;">
-                    <button class="btn btn-success hover-button" id="compare" type="button"style="float: right; margin-top: 18vmin;">Compare</button>
-                </div>
-                </a>
-                {% endif %}
             </div>
         </div>
-    </div> 
+    </div>
+    {% endif %}
+
+    {% if selected_repo != repo['id'] %}
+    {% if not selected_repo %}
+    <a href="/metrics" style="text-decoration: none;">
+        <div class="item git-button" href="/metrics">
+            <div class="container">
+                <div class="row">
+                    <div class="col-auto">
+                        <div class="placeholder"></div>
+                    </div>
+                    <div class="col-5">
+                        <!--PROJECT NAME-->
+                        <h2><strong>{{repo['name']}}</strong></h2>
+                        <!--OWNER-->
+                        <h4><strong>{{repo['owner']}}</strong></h4>
+                        <!--DESCRIPTION-->
+                        <div class="description">
+                            <p>
+                                description of the thingof the thingof the thingof the thingof the thingof the thingof the thing <br>readme.MD goes here
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col" style="padding-left: 1vmin;">
+                        <p>
+                            Date Created: <br>
+                            Commits: {{repo['commit_count']}}<br>
+                            Last Commit: {{repo['modified_at']}}<br>
+                            Contibutors: <br>
+                            Lines of Code:
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+    {% else %}
+    <form method="POST" class="item git-button">
+        <button type="submit" name="rep" value="{{repo['id']}}" style="display: contents;" class="item git-button">
+            <div class="container">
+                <div class="row">
+                    <div class="col-auto">
+                        <div class="placeholder"></div>
+                    </div>
+                    <div class="col-5">
+                        <!--PROJECT NAME-->
+                        <h2><strong>{{repo['name']}}</strong></h2>
+                        <!--OWNER-->
+                        <h4><strong>{{repo['owner']}}</strong></h4>
+                        <!--DESCRIPTION-->
+                        <div class="description">
+                            <p>
+                                description of the thingof the thingof the thingof the thingof the thingof the thingof the thing <br>readme.MD goes here
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col" style="padding-left: 1vmin;">
+                        <p>
+                            Date Created: <br>
+                            Commits: {{repo['commit_count']}}<br>
+                            Last Commit: repo['commit_count']<br>
+                            Contibutors:<br>
+                            Lines of Code: 
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </button>
+    </form>
+    {% endif %}
     {% endif %}
     {% endfor %}
 </div>
