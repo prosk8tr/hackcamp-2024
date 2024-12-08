@@ -33,9 +33,9 @@ Github Metrics
             <div class="row">
                 <div class="col-5">
                     <!--PROJECT NAME-->
-                    <h2><strong>{{repo['name']}}</strong></h2>
+                    <h2>{{repo['name']}}</h2>
                     <!--OWNER-->
-                    <h4><strong>{{repo['owner']}}</strong></h4>
+                    <h4>{{repo['owner']}}</h4>
                 </div>
             </div>
         </div>
@@ -49,27 +49,20 @@ Github Metrics
             <div class="container">
                 <div class="row">
                     <div class="col-auto">
-                        <div class="placeholder"></div>
+                        <img src="static/images/github-mark.png" alt="GitHub logo" class="img-fluid" style="height: 12vmin; width: auto;"/>
                     </div>
                     <div class="col-5">
                         <!--PROJECT NAME-->
-                        <h2><strong>{{repo['name']}}</strong></h2>
+                        <h2>{{repo['name']}}</h2>
                         <!--OWNER-->
-                        <h4><strong>{{repo['owner']}}</strong></h4>
-                        <!--DESCRIPTION-->
-                        <div class="description">
-                            <p>
-                                description of the thingof the thingof the thingof the thingof the thingof the thingof the thing <br>readme.MD goes here
-                            </p>
-                        </div>
+                        <h4>{{repo['owner']}}</h4>
                     </div>
                     <div class="col" style="padding-left: 1vmin;">
                         <p>
-                            Date Created: <br>
-                            Commits: {{repo['commit_count']}}<br>
-                            Last Commit: {{repo['modified_at']}}<br>
-                            Contibutors: <br>
-                            Lines of Code:
+                            Commits: <strong>{{repo['commit_count']}}</strong><br>
+                            Last Commit: <strong>{{repo['modified_at']}}</strong><br>
+                            Contibutors: <strong>{{repo['contributor_count']}}</strong><br>
+                            Files: <strong>{{repo['file_count']}}</strong>
                         </p>
                     </div>
                 </div>
@@ -82,27 +75,20 @@ Github Metrics
             <div class="container">
                 <div class="row">
                     <div class="col-auto">
-                        <div class="placeholder"></div>
+                        <img src="static/images/github-mark.png" alt="GitHub logo" class="img-fluid" style="height: 12vmin; width: auto;"/>
                     </div>
                     <div class="col-5">
                         <!--PROJECT NAME-->
-                        <h2><strong>{{repo['name']}}</strong></h2>
+                        <h2>{{repo['name']}}</h2>
                         <!--OWNER-->
-                        <h4><strong>{{repo['owner']}}</strong></h4>
-                        <!--DESCRIPTION-->
-                        <div class="description">
-                            <p>
-                                description of the thingof the thingof the thingof the thingof the thingof the thingof the thing <br>readme.MD goes here
-                            </p>
-                        </div>
+                        <h4>{{repo['owner']}}</h4>
                     </div>
                     <div class="col" style="padding-left: 1vmin;">
                         <p>
-                            Date Created: <br>
-                            Commits: {{repo['commit_count']}}<br>
-                            Last Commit: repo['commit_count']<br>
-                            Contibutors:<br>
-                            Lines of Code: 
+                            Commits: <strong>{{repo['commit_count']}}</strong><br>
+                            Last Commit: <strong>{{repo['modified_at']}}</strong><br>
+                            Contibutors: <strong>{{repo['contributor_count']}}</strong><br>
+                            Files: <strong>{{repo['file_count']}}</strong>
                         </p>
                     </div>
                 </div>
