@@ -22,8 +22,12 @@ class DbConnect:
         self.cursor = self.connection.cursor() #This is what allows select queries
 
     def fetch_all_repositories(self):
-        self.cursor.execute("SELECT id, name, owner FROM repositories;")
-        
+        self.cursor.execute("""SELECT id, name, owner, 
+        (SELECT COUNT(commits.id) AS commit_count FROM commits WHERE repositories.id=commits.repository_id), 
+        (SELECT COUNT(DISTINCT author) AS contributor_count FROM commits WHERE repositories.id=commits.repository_id), 
+        (SELECT COUNT(files.id) AS file_count FROM files WHERE is_directory='f' 
+        AND files.branch_id=(SELECT id FROM branches where branches.repository_id=repositories.id)) 
+        FROM repositories;""")
         results=self.cursor.fetchall()
 
         columns = []
