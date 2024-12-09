@@ -20,83 +20,34 @@ Github Metrics
         </div>
     </div>
 
-    <!--im so so sorry-->
-    {% if selected_repo %}
-    <h2>Select repository to compare with</h2>
-    {% endif %}
-
     <!--Buttons-->
+    
     {% for index, repo in repos.iterrows() %}
-    {% if selected_repo == repo['id'] %}
-    <div class="item git-selected">
-        <div class="container">
-            <div class="row">
-                <div class="col-5">
-                    <!--PROJECT NAME-->
-                    <h2>{{repo['name']}}</h2>
-                    <!--OWNER-->
-                    <h4>{{repo['owner']}}</h4>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
-
-    {% if selected_repo != repo['id'] %}
-    {% if not selected_repo %}
-    <a href="/metrics" style="text-decoration: none;">
-        <div class="item git-button" href="/metrics">
-            <div class="container">
-                <div class="row">
-                    <div class="col-auto">
-                        <img src="static/images/github-mark.png" alt="GitHub logo" class="img-fluid" style="height: 12vmin; width: auto;"/>
-                    </div>
-                    <div class="col-5">
-                        <!--PROJECT NAME-->
-                        <h2>{{repo['name']}}</h2>
-                        <!--OWNER-->
-                        <h4>{{repo['owner']}}</h4>
-                    </div>
-                    <div class="col" style="padding-left: 1vmin;">
-                        <p>
-                            Commits: <strong>{{repo['commit_count']}}</strong><br>
-                            Last Commit: <strong>{{repo['modified_at']}}</strong><br>
-                            Contibutors: <strong>{{repo['contributor_count']}}</strong><br>
-                            Files: <strong>{{repo['file_count']}}</strong>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </a>
-    {% else %}
-    <form method="POST" class="item git-button">
+    <form method="POST" class="item git-button" action="/metrics">
         <button type="submit" name="rep" value="{{repo['id']}}" style="display: contents;" class="item git-button">
-            <div class="container">
-                <div class="row">
-                    <div class="col-auto">
+            <span class="container">
+                <span class="row" style="transform: translate(0px, -3.5vmin)">
+                    <span class="col-auto">
                         <img src="static/images/github-mark.png" alt="GitHub logo" class="img-fluid" style="height: 12vmin; width: auto;"/>
-                    </div>
-                    <div class="col-5">
+                    </span>
+                    <span class="col-5">
                         <!--PROJECT NAME-->
                         <h2>{{repo['name']}}</h2>
                         <!--OWNER-->
                         <h4>{{repo['owner']}}</h4>
-                    </div>
-                    <div class="col" style="padding-left: 1vmin;">
+                    </span>
+                    <span class="col" style="padding-left: 1vmin;">
                         <p>
                             Commits: <strong>{{repo['commit_count']}}</strong><br>
                             Last Commit: <strong>{{repo['modified_at']}}</strong><br>
                             Contibutors: <strong>{{repo['contributor_count']}}</strong><br>
                             Files: <strong>{{repo['file_count']}}</strong>
                         </p>
-                    </div>
-                </div>
-            </div>
-        </button>
-    </form>
-    {% endif %}
-    {% endif %}
+                    </span>
+                </span>
+            </span>
+        </button> 
+    </form>     
     {% endfor %}
 </div>
 {% endblock %}
