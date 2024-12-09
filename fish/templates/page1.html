@@ -21,7 +21,6 @@ Github Metrics
     </div>
 
     <!--Buttons-->
-    
     {% for index, repo in repos.iterrows() %}
     <form method="POST" class="item git-button" action="/metrics">
         <button type="submit" name="rep" value="{{repo['id']}}" style="display: contents;" class="item git-button">
