@@ -5,9 +5,56 @@ Comparison
 {% endblock %}
 
 {% block header %}
-<h1>TITLEEE"!!!</h1>
+<h3>Compare 2 Github Projects</h3>
 {% endblock %}
 
 {% block content %}
+<div class="container my-4">
+    <div class="row">
+        <form method="POST" id="compare" name="compare" class="d-flex align-items-center">
+            <div class="col-md-6 me-3">
+                <label for="dropdown1" class="form-label">Select Project 1</label>
+                <select class="form-select" id="dropdown1" name="project_1">
+                    {% for index, repo in repos.iterrows() %}
+                        <option value="{{ repo['id'] }}">{{ repo['name'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
+            <div class="col-md-6 me-3">
+                <label for="dropdown2" class="form-label">Select Project 2</label>
+                <select class="form-select" id="dropdown2" name="project_2">
+                    {% for index, repo in repos.iterrows() %}
+                        <option value="{{ repo['id'] }}">{{ repo['name'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+        </form>
+    </div>
+    <div class="row">
+        <div class="d-grid gap-2 col-2 mx-auto my-2">
+            <button type="submit" form="compare">Compare</button>
+        </div>
+    </div> 
+</div>
+
+<div class="container my-4">
+    <div class="row">
+        <!-- First Column -->
+        <div class="col-md-6">
+            <h3>{{project_1_title}}</h3>
+            {{bar_graph_1|safe}}
+            {{pie_chart_1|safe}}
+            {{histogram_1|safe}}  
+        </div>
+        <!-- Second Column -->
+        <div class="col-md-6">
+            <h3>{{project_2_title}}</h3>
+            {{bar_graph_2|safe}}
+            {{pie_chart_2|safe}}
+            {{histogram_2|safe}}
+        </div>
+    </div>
+  </div>
 {% endblock %}
