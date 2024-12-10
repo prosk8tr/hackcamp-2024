@@ -12,6 +12,8 @@ to commit, go to the version control section on the sidebar. write a message in 
 
 # How to launch
 
+**MAKE SURE YOU HAVE INSTALLED python 1.13.0, pip AND postgreSQL COMMAND LINE TOOLS**
+
 In VS Code:
 
 ctrl+shift+P to open command palette. Go to >Python: Create environment... and then select venv. Select python 3.13 (or whatever it says idk).
