@@ -14,7 +14,10 @@ class GraphDrawer:
         df.index=df.index.astype(str)#so it can be turned into html string
         
         # Create Bar chart
-        fig = px.bar(df, x=df.index, y='count',  barmode='group')
+        fig = px.bar(df, x=df.index, y='count', barmode='group')
+        fig.update_traces(marker_color="#CF7336", opacity=0.9) # decide the color of the bars in the chart
+        
+
         #TODO: find a way to make the axis names look less python-y
         fig.update_layout(
             {
@@ -28,7 +31,7 @@ class GraphDrawer:
         #TODO:switch between functional line count and all line count
 
     def draw_commit_authors(self,commits):
-        fig = px.pie(commits, values='id', names='author', title='Commits Made')
+        fig = px.pie(commits, values='id', names='author', title='Commits Made', color_discrete_sequence=px.colors.sequential.YlOrRd_r) #the last attribute decides the color of the pie chart      
         fig.update_layout(
             {
                 "paper_bgcolor": "rgba(0, 0, 0, 0)",
@@ -41,6 +44,7 @@ class GraphDrawer:
     def draw_commit_history(self,commits):
         fig = px.histogram(commits, x="date")
         fig.update_traces(xbins_size="M1")
+        fig.update_traces(marker_color="#CF7336",opacity=0.9) # decide the color of the blocks of data in the graph
         fig.update_layout(
             {
                 "paper_bgcolor": "rgba(0, 0, 0, 0)",
@@ -48,7 +52,6 @@ class GraphDrawer:
                 "font_color":"white",
             }
         )
-        fig.update_layout(xaxis_rangeslider_visible=True)
         return fig.to_html()
 
 class DbConnect:
