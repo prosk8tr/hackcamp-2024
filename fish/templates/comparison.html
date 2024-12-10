@@ -47,11 +47,13 @@ Comparison
 
 <div class="container my-4">
     <div class="row">
+        {{bar_graph|safe}}
+    </div>
+    <div class="row">
         <!-- First Column -->
         <div class="col-md-6">
             <!-- Graphs for Project 1 -->
             <h3>{{project_1_title}}</h3>
-            {{bar_graph_1|safe}}
             {{pie_chart_1|safe}}
             {{histogram_1|safe}}  
         </div>
@@ -59,7 +61,6 @@ Comparison
         <div class="col-md-6">
             <!-- Graphs for Project 2 -->
             <h3>{{project_2_title}}</h3>
-            {{bar_graph_2|safe}}
             {{pie_chart_2|safe}}
             {{histogram_2|safe}}
         </div>

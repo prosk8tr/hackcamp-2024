@@ -42,8 +42,7 @@ def comparison():
         all_commits_2 = db.fetch_commits_from_repo(project_2)
 
 
-        bar_1 = graph_drawer.draw_file_size(all_files_1)
-        bar_2 = graph_drawer.draw_file_size(all_files_2)
+        bar_compare = graph_drawer.compare_file_sizes(all_files_1,all_files_2)
         pie_1 = graph_drawer.draw_commit_authors(all_commits_1)
         pie_2 = graph_drawer.draw_commit_authors(all_commits_2)
         histogram_1 = graph_drawer.draw_commit_history(all_commits_1)
@@ -54,7 +53,7 @@ def comparison():
         project_2_title=repos.loc[repos['id']==project_2]
         project_2_title=project_2_title.values[0][1]
         
-        return render_template("comparison.html",project_1_title=project_1_title,project_2_title=project_2_title,repos=repos,bar_graph_1=bar_1,pie_chart_1=pie_1,histogram_1=histogram_1,bar_graph_2=bar_2,pie_chart_2=pie_2,histogram_2=histogram_2)
+        return render_template("comparison.html",project_1_title=project_1_title,project_2_title=project_2_title,repos=repos,bar_graph=bar_compare,pie_chart_1=pie_1.to_html(),histogram_1=histogram_1.to_html(),pie_chart_2=pie_2.to_html(),histogram_2=histogram_2.to_html())
     else:
         return render_template("comparison.html",repos=repos)
 
@@ -69,5 +68,5 @@ def metrics():
     repo_data=repos.loc[repos['id']==repo_id]
     print(repo_data.values[0][1])
     repo_data=repo_data.values[0]
-    return render_template("metrics.html",bar_graph=converted_graph,pie_chart=converted_pie,histogram=converted_histogram,repo_data=repo_data)
+    return render_template("metrics.html",bar_graph=converted_graph.to_html(),pie_chart=converted_pie.to_html(),histogram=converted_histogram.to_html(),repo_data=repo_data)
 

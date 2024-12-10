@@ -3,18 +3,19 @@ import psycopg
 import pandas
 import plotly
 import plotly.express as px
+import plotly.graph_objects as go
 
 class GraphDrawer:
     def draw_file_size(self,files): #draws a bar chart of the size of every file.
         #prepare the data; group into categories
-        bins = pandas.cut(files['line_count'], [0,50,100,500,1000])
-        count = bins.value_counts()
-        count=count.sort_index(ascending=True)
-        df=pandas.DataFrame(count, columns=['count'])
-        df.index=df.index.astype(str)#so it can be turned into html string
+        bins = pandas.cut(files['line_count'], [0,50,100,500,1000]) #sort all files into bins with ranges of line counts
+        count = bins.value_counts() #returns the count of how many rows fit into each bin
+        count=count.sort_index(ascending=True) #just makes sure the bars are sorted from lowest line count to highest
+        file_size_data=pandas.DataFrame(count, columns=['count']) #new dataframe containing the data we just calculated ^
+        file_size_data.index=file_size_data.index.astype(str)#so it can be turned into html string
         
         # Create Bar chart
-        fig = px.bar(df, x=df.index, y='count', barmode='group')
+        fig = px.bar(file_size_data, x=file_size_data.index, y='count',  barmode='group')
         fig.update_traces(marker_color="#CF7336", opacity=0.9) # decide the color of the bars in the chart
         
 
@@ -27,7 +28,7 @@ class GraphDrawer:
             }
         )
 
-        return fig.to_html() #return as html string, so it can be used in the view
+        return fig
         #TODO:switch between functional line count and all line count
 
     def draw_commit_authors(self,commits):
@@ -39,7 +40,26 @@ class GraphDrawer:
                 "font_color":"white",
             }
         )
-        return fig.to_html()
+        return fig
+
+    def compare_file_sizes(self,project_1_files,project_2_files):
+        # Create bar charts
+        fig1 = self.draw_file_size(project_1_files)
+        fig2 = self.draw_file_size(project_2_files)
+
+        #combine the graphs
+        fig_combined = go.Figure(data = fig1.data + fig2.data)
+        
+        fig_combined.update_layout(
+            {
+                "paper_bgcolor": "rgba(0, 0, 0, 0)",
+                "plot_bgcolor": "rgba(0, 0, 0, 0)",
+                "font_color":"white",
+            }
+        )
+
+        return fig_combined.to_html() #return as html string, so it can be used in the view
+        #TODO:switch between functional line count and all line count
     
     def draw_commit_history(self,commits):
         fig = px.histogram(commits, x="date")
@@ -52,7 +72,7 @@ class GraphDrawer:
                 "font_color":"white",
             }
         )
-        return fig.to_html()
+        return fig
 
 class DbConnect:
     def __init__(self):
