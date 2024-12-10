@@ -1,0 +1,55 @@
+{% extends "template.html" %}
+
+{% block title %}
+Github Metrics
+{% endblock %}
+
+{% block header %}
+<h3>GitHub Metric Data Visualisation</h3>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4"> 
+    <!-- Search Box -->
+    <div class="row mb-3">
+        <div class="col-auto">
+            <div class="input-group">
+                <input type="text" class="form-control" id="search-input" placeholder="Search...">
+                <button class="btn btn-dark hover-button" id="search-button">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!--Buttons -->
+    <!-- For loop that cycles through repositories and creates a button for each one -->
+    {% for index, repo in repos.iterrows() %}
+    <form method="POST" class="item git-button" action="/metrics">
+        <button type="submit" name="rep" value="{{repo['id']}}" style="display: contents;" class="item git-button">
+            <span class="container">
+                <span class="row" style="transform: translate(0px, -3.5vmin)">
+                    <span class="col-auto">
+                        <!-- Display Image -->
+                        <img src="static/images/github-mark.png" alt="GitHub logo" class="img-fluid" style="height: 12vmin; width: auto;"/>
+                    </span>
+                    <span class="col-5">
+                        <!-- Project Name -->
+                        <h2>{{repo['name']}}</h2>
+                        <!-- OWNER -->
+                        <h4>{{repo['owner']}}</h4>
+                    </span>
+                    <span class="col" style="padding-left: 1vmin;">
+                        <p>
+                            <!-- Data pulled from Database -->
+                            Commits: <strong>{{repo['commit_count']}}</strong><br>
+                            Last Commit: <strong>{{repo['modified_at']}}</strong><br>
+                            Contibutors: <strong>{{repo['contributor_count']}}</strong><br>
+                            Files: <strong>{{repo['file_count']}}</strong>
+                        </p>
+                    </span>
+                </span>
+            </span>
+        </button> 
+    </form>     
+    {% endfor %}
+</div>
+{% endblock %}

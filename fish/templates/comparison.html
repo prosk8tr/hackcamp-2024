@@ -11,19 +11,24 @@ Comparison
 {% block content %}
 <div class="container my-4">
     <div class="row">
+        <!-- Form used to select 2 projects to compare-->
         <form method="POST" id="compare" name="compare" class="d-flex align-items-center">
+            <!-- Dropdown Form 1-->
             <div class="col-md-6 me-3">
                 <label for="dropdown1" class="form-label">Select Project 1</label>
                 <select class="form-select" id="dropdown1" name="project_1">
+                    <!-- Cycles through repositores and displayes names of projects as selectable option -->
                     {% for index, repo in repos.iterrows() %}
                         <option value="{{ repo['id'] }}">{{ repo['name'] }}</option>
                     {% endfor %}
                 </select>
-            </div>
+            </div> 
 
+            <!-- Dropdown Form 2-->
             <div class="col-md-6 me-3">
                 <label for="dropdown2" class="form-label">Select Project 2</label>
                 <select class="form-select" id="dropdown2" name="project_2">
+                    <!-- Cycles through repositores and displayes names of projects as selectable option -->
                     {% for index, repo in repos.iterrows() %}
                         <option value="{{ repo['id'] }}">{{ repo['name'] }}</option>
                     {% endfor %}
@@ -32,6 +37,7 @@ Comparison
 
         </form>
     </div>
+    <!-- Comapre Button to Submit the form -->
     <div class="row">
         <div class="d-grid gap-2 col-2 mx-auto my-2">
             <button type="submit" form="compare">Compare</button>
@@ -43,6 +49,7 @@ Comparison
     <div class="row">
         <!-- First Column -->
         <div class="col-md-6">
+            <!-- Graphs for Project 1 -->
             <h3>{{project_1_title}}</h3>
             {{bar_graph_1|safe}}
             {{pie_chart_1|safe}}
@@ -50,6 +57,7 @@ Comparison
         </div>
         <!-- Second Column -->
         <div class="col-md-6">
+            <!-- Graphs for Project 2 -->
             <h3>{{project_2_title}}</h3>
             {{bar_graph_2|safe}}
             {{pie_chart_2|safe}}

@@ -1,5 +1,5 @@
 body{
-    background-image: linear-gradient(20deg, rgb(176, 184, 230), rgb(55, 21, 60));
+    background-image: linear-gradient(20deg, rgb(176, 184, 230), rgb(55, 21, 60)); /* Adds gradient to background */
     height: 100%; /* Full viewport height */
     display: flex;
     flex-direction: column;
@@ -7,7 +7,7 @@ body{
 }
 
 a{
-    text-decoration: none;
+    text-decoration: none; /* Removes the blue underline from links */
     display: contents;
     color:inherit;
     margin:inherit;
@@ -15,7 +15,7 @@ a{
 }
 
 a:hover{
-    text-decoration: none;
+    text-decoration: none; /* Removes the blue underline from links */
     display: contents;
     color:inherit;
     margin:inherit;
@@ -30,7 +30,6 @@ a:hover{
     margin-left: 10vmin;
     margin-right: 10vmin;
     margin-bottom: 3vmin;
-    /* height: 80vmin; */
     border-radius: 2vmin;
     color: white;
     background-image: linear-gradient(to bottom, rgb(6, 0, 40), rgba(255, 255, 255, 0));
@@ -41,7 +40,6 @@ a:hover{
     justify-content: center;
     text-align: center;
     padding: 3vmin;
-    /* height: 80vmin; */
     color: white;
     background-image: linear-gradient(to bottom, rgb(6, 0, 40), rgba(69, 0, 35, 0.493));
     flex: 1; /* Allows this section to grow/shrink dynamically */
@@ -50,20 +48,16 @@ a:hover{
 .hover-button{
     cursor: pointer;
     border-radius: 1vmin;
-    transition: 0.25s;
-
-    text-align: center; /* Centers text horizontally */
     display: inline-flex; /* Enables flex for better centering */
     justify-content: center; /* Centers text horizontally */
     align-items: center; /* Centers text vertically */
-    height: 5vmin; /* Define height to prevent size shrinking */
-    min-width: 15vmin; /*Define minimum width for consistent size */
-    margin-left: 1vmin; /*small margin to seperate from nav bar title*/
+    min-width: 10vmin; /*Define minimum width for consistent size */
+    margin-left: 0.5vmin; /*small margin to seperate from nav bar title*/
 }
     
 .hover-button:hover{
     background-color: rgba(193, 193, 193, 0.362);
-    transform: translateY(-0.5vmin);
+    transform: translateY(-0.5vmin);    
     box-shadow: 0px 0.5vmin 5px black;
 }
 
@@ -100,27 +94,6 @@ a:hover{
     transition: 0.25s;
 }
 
-.placeholder{
-    margin: 1vmin; 
-    height: 100%;
-    width: 30vmin;
-    object-fit: cover;
-    border-radius: 1vmin;
-    background-color: rgb(0, 0, 0);
-    
-}
-
-.description{
-    font-size: 1.6vmin;
-    line-height: 2vmin;
-    background-color: lightgray;
-    padding: 1vmin;
-    border-width: 2px;
-    height: 10vmin;
-    width: 100%;
-    border-radius: 1vmin;
-}
-
 .footer {
     height: 10vmin; /* Footer height */
     text-align: center;
@@ -149,11 +122,25 @@ a:hover{
     .text-board {
         margin: 3vmin 10vmin; /* Reduce horizontal margin for tablets and small laptops */
     }
+
+    .git-button {
+        flex-direction: column; /* Stack items vertically */
+        height: auto; /* Allow dynamic height */
+    }
 }
 
 @media (max-width: 576px) {
     .text-board {
         margin: 3vmin 5vmin; /* Further reduce horizontal margin for phones */
         padding: 2vmin; /* Adjust padding for smaller screens */
+    }
+
+    .git-button {
+        margin: 1vmin 0; /* Stack buttons vertically */
+        height: auto; /* Allow dynamic height */
+    }
+
+    .git-button img {
+        height: 6vmin; /* Even smaller logo size for phones */
     }
 }
