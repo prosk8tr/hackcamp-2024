@@ -14,8 +14,10 @@ Github Metrics
     <div class="row mb-3">
         <div class="col-auto">
             <div class="input-group">
-                <input type="text" class="form-control" id="search-input" placeholder="Search...">
-                <button class="btn btn-dark hover-button" id="search-button">Search</button>
+                <form method="POST">
+                    <input type="text" class="form-control" id="search-input" name="search-term" placeholder="Search...">
+                    <input type="submit" class="btn btn-dark hover-button" id="search-button">Search</input>
+                </form>
             </div>
         </div>
     </div>

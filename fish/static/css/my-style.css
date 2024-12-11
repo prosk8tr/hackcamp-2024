@@ -7,20 +7,9 @@ body{
 }
 
 a{
-    text-decoration: none; /* Removes the blue underline from links */
-    display: contents;
-    color:inherit;
-    margin:inherit;
-    padding:inherit;
+    text-decoration: none;
 }
 
-a:hover{
-    text-decoration: none; /* Removes the blue underline from links */
-    display: contents;
-    color:inherit;
-    margin:inherit;
-    padding:inherit;
-}
 
 .text-board{
     justify-content: center;
@@ -53,6 +42,7 @@ a:hover{
     align-items: center; /* Centers text vertically */
     min-width: 10vmin; /*Define minimum width for consistent size */
     margin-left: 0.5vmin; /*small margin to seperate from nav bar title*/
+    transition: 200ms;
 }
     
 .hover-button:hover{
