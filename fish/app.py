@@ -10,6 +10,7 @@ app = Flask(__name__)
 db = models.DbConnect()
 repos = db.fetch_all_repositories()
 graph_drawer = models.GraphDrawer()
+global repo_id
 repo_id=""
 
 repo_compare = ["", ""]
@@ -25,9 +26,19 @@ def home():
 @app.route('/projects', methods=['GET', 'POST'])
 def projects():
     if request.method=='POST':
-        repo_id=request.form['rep']
-        print(repo_id)
-    return render_template("projects.html", repos=repos)
+        #repo_id=request.form['rep']
+        search_term = request.form.get('search-term')
+        if search_term != "":
+            print('c')
+            print(search_term)
+            search_results = repos.query('name.str.contains(@search_term, case=False) or owner.str.contains(@search_term, case=False)')
+            return render_template("projects.html",repos=search_results)
+        else: 
+            print('b')
+            return render_template("projects.html", repos=repos)
+    else:
+        print('a')
+        return render_template("projects.html", repos=repos)
 
 
 @app.route('/comparison', methods=['POST','GET'])
