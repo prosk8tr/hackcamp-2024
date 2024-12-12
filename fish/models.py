@@ -72,6 +72,7 @@ class GraphDrawer:
                 "font_color":"white",
             }
         )
+        fig.update_layout(xaxis_rangeslider_visible=True)
         return fig
 
 class DbConnect:
