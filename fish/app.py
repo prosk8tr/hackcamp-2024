@@ -70,14 +70,15 @@ def comparison():
 
 @app.route('/metrics', methods=['GET','POST'])
 def metrics():
-    repo_id=request.form['rep']
+    repo_id=request.args['repo']
     all_files = db.fetch_files_from_repo(repo_id)
     all_commits = db.fetch_commits_from_repo(repo_id)
     converted_graph = graph_drawer.draw_file_size(all_files)
     converted_pie = graph_drawer.draw_commit_authors(all_commits)
     converted_histogram = graph_drawer.draw_commit_history(all_commits)
     repo_data=repos.loc[repos['id']==repo_id]
-    print(repo_data.values[0][1])
+    if(repo_data.empty):
+        return redirect('/projects')
     repo_data=repo_data.values[0]
     return render_template("metrics.html",bar_graph=converted_graph.to_html(),pie_chart=converted_pie.to_html(),histogram=converted_histogram.to_html(),repo_data=repo_data)
 

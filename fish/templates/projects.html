@@ -25,7 +25,7 @@ Github Metrics
     <!--Buttons -->
     <!-- For loop that cycles through repositories and creates a button for each one -->
     {% for index, repo in repos.iterrows() %}
-    <form method="POST" class="item git-button" action="/metrics">
+    <form method="POST" class="item git-button" action="/metrics?repo={{repo['id']}}">
         <button type="submit" name="rep" value="{{repo['id']}}" style="display: contents;" class="item git-button">
             <span class="container">
                 <span class="row" style="transform: translate(0px, -3.5vmin)">
