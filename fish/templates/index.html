@@ -9,29 +9,35 @@ Index
 {% endblock %}
 
 {% block content %}
-    <h4 style="text-align: left;">Visualize, Analyze & Compare GitHub Project Metrics with Ease!</h4>
-    <p style="text-align: left; text-indent: 2vmin;" >Discover in-depth insights into GitHub repository metrics. 
-    Track trends, analyze performance, and compare repositories side by side for better project understanding.</p>
+<div class="container text-center my-4">
+    <!-- Top Div Centralized -->
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h4>Visualize, Analyze & Compare GitHub Project Metrics with Ease!</h4>
+            <p style="text-indent: 2vmin;">
+                Discover in-depth insights into GitHub repository metrics. 
+                Track trends, analyze performance, and compare repositories side by side for better project understanding.
+            </p>
+        </div>
+    </div>
 
-    <h4 style="text-align: left;">Graphical insights</h4>
-    <p style="text-align: left; text-indent: 2vmin;">See interactive charts for a quick understading of metrics 
-    linked to a specific project</p>
-
-    <h4 style="text-align: left;">Project Comparison</h4>
-    <p style="text-align: left; text-indent: 2vmin;">Gain detailed insights on the differences between the projects</p>
-    
-    <h4 style="text-align: left;">Up-to-Date Metrics</h4>
-    <p style="text-align: left; text-indent: 2vmin;">The project metrics are pulled directly from a database using SQL statements</p>
-    
-    <h4 style="text-align: left;">Simple Guide</h4>
-    <!-- List -->
-    <ol style="text-align: left; text-indent: 2vmin;">
-        <li>Select either GitHub Metrics or Comparisons</li>
-        <li>Choose the project you want to viewport</li>
-        <li>Metrics Displayed in graphical format</li>
-        <ul>
-            <li>You can also choose the date range for certain graphs using the sliding bar below the graph</li>
-        </ul>
-    </ol>
-
+    <!-- Two Divs Side by Side -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h4>Graphical insights</h4>
+            <p style="text-indent: 2vmin;">
+                See interactive charts for a quick understanding of metrics 
+                linked to a specific project.
+            </p>
+            <img src="static/images/graph3.png" alt="redocelot" class="img-fluid" style="height: 240px;" />
+        </div>
+        <div class="col-md-6">
+            <h4>Project Comparison</h4>
+            <p style="text-indent: 2vmin;">
+                Gain detailed insights on the differences between the projects.
+            </p>
+            <img src="static/images/compare3.png" alt="redocelot" class="img-fluid"  />
+        </div>
+    </div>
+</div>
 {% endblock %}
