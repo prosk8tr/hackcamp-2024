@@ -49,7 +49,7 @@ class GraphDrawer:
     def compare_commit_authors(self,project_1_commits,project_2_commits):#Create both pie charts together so they render at the same time.
         fig1 = self.draw_commit_authors(project_1_commits)
         fig2 = px.pie(project_2_commits, values='id', names='author', color_discrete_sequence=px.colors.sequential.YlOrRd_r)
-        fig2.update_traces(hovertemplate='Author: %{names} <br>Commits: %{value}')
+        fig2.update_traces(hovertemplate='Author: %{label} <br>Commits: %{value}')
         fig2.update_layout(
             {
                 "paper_bgcolor": "rgba(0, 0, 0, 0)",
