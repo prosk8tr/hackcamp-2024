@@ -54,31 +54,28 @@ def comparison():
 
 
         bar_compare = graph_drawer.compare_file_sizes(all_files_1,all_files_2)
-        pie_1 = graph_drawer.draw_commit_authors(all_commits_1)
-        pie_2 = graph_drawer.draw_commit_authors(all_commits_2)
-        histogram_1 = graph_drawer.draw_commit_history(all_commits_1)
-        histogram_2 = graph_drawer.draw_commit_history(all_commits_2)
+        pie_charts = graph_drawer.compare_commit_authors(all_commits_1,all_commits_2)
+        histograms = graph_drawer.compare_commit_history(all_commits_1,all_commits_2)
 
         project_1_title=repos.loc[repos['id']==project_1]
         project_1_title=project_1_title.values[0][1]
         project_2_title=repos.loc[repos['id']==project_2]
         project_2_title=project_2_title.values[0][1]
         
-        return render_template("comparison.html",project_1_title=project_1_title,project_2_title=project_2_title,repos=repos,bar_graph=bar_compare,pie_chart_1=pie_1.to_html(),histogram_1=histogram_1.to_html(),pie_chart_2=pie_2.to_html(),histogram_2=histogram_2.to_html())
+        return render_template("comparison.html",project_1_title=project_1_title,project_2_title=project_2_title,repos=repos,bar_graph=bar_compare,pie_chart_1=pie_charts[0],histogram_1=histograms[0],pie_chart_2=pie_charts[1],histogram_2=histograms[1])
     else:
         return render_template("comparison.html",repos=repos)
 
 @app.route('/metrics', methods=['GET','POST'])
 def metrics():
-    repo_id=request.args['repo']
+    repo_id=request.form['rep'] 
     all_files = db.fetch_files_from_repo(repo_id)
     all_commits = db.fetch_commits_from_repo(repo_id)
     converted_graph = graph_drawer.draw_file_size(all_files)
     converted_pie = graph_drawer.draw_commit_authors(all_commits)
     converted_histogram = graph_drawer.draw_commit_history(all_commits)
     repo_data=repos.loc[repos['id']==repo_id]
-    if(repo_data.empty):
-        return redirect('/projects')
+    print(repo_data.values[0][1])
     repo_data=repo_data.values[0]
     return render_template("metrics.html",bar_graph=converted_graph.to_html(),pie_chart=converted_pie.to_html(),histogram=converted_histogram.to_html(),repo_data=repo_data)
 
