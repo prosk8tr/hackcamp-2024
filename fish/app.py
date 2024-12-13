@@ -29,20 +29,19 @@ def projects():
         #repo_id=request.form['rep']
         search_term = request.form.get('search-term')
         if search_term != "":
-            print('c')
-            print(search_term)
             search_results = repos.query('name.str.contains(@search_term, case=False) or owner.str.contains(@search_term, case=False)')
             return render_template("projects.html",repos=search_results)
         else: 
-            print('b')
             return render_template("projects.html", repos=repos)
     else:
-        print('a')
         return render_template("projects.html", repos=repos)
 
 
 @app.route('/comparison', methods=['POST','GET'])
 def comparison():
+    selected_project_1 = request.form.get('project_1', '')
+    selected_project_2 = request.form.get('project_2', '')
+
     if request.method=='POST':
         project_1=request.form['project_1']
         project_2=request.form['project_2']
@@ -62,9 +61,10 @@ def comparison():
         project_2_title=repos.loc[repos['id']==project_2]
         project_2_title=project_2_title.values[0][1]
         
-        return render_template("comparison.html",project_1_title=project_1_title,project_2_title=project_2_title,repos=repos,bar_graph=bar_compare,pie_chart_1=pie_charts[0],histogram_1=histograms[0],pie_chart_2=pie_charts[1],histogram_2=histograms[1])
+        return render_template("comparison.html",project_1_title=project_1_title,project_2_title=project_2_title,repos=repos,bar_graph=bar_compare,pie_chart_1=pie_charts[0],histogram_1=histograms[0],pie_chart_2=pie_charts[1],histogram_2=histograms[1],selected_project_1=selected_project_1, selected_project_2=selected_project_2)
     else:
         return render_template("comparison.html",repos=repos)
+    
 
 @app.route('/metrics', methods=['GET','POST'])
 def metrics():
@@ -75,7 +75,6 @@ def metrics():
     converted_pie = graph_drawer.draw_commit_authors(all_commits)
     converted_histogram = graph_drawer.draw_commit_history(all_commits)
     repo_data=repos.loc[repos['id']==repo_id]
-    print(repo_data.values[0][1])
     repo_data=repo_data.values[0]
     return render_template("metrics.html",bar_graph=converted_graph.to_html(),pie_chart=converted_pie.to_html(),histogram=converted_histogram.to_html(),repo_data=repo_data)
 

@@ -17,25 +17,28 @@ Comparison
             <div class="col-md-6 me-3">
                 <label for="dropdown1" class="form-label">Select Project 1</label>
                 <select class="form-select" id="dropdown1" name="project_1">
-                    <!-- Cycles through repositores and displayes names of projects as selectable option -->
                     {% for index, repo in repos.iterrows() %}
-                        <option value="{{ repo['id'] }}">{{ repo['name'] }}</option>
+                        <option value="{{ repo['id'] }}" {% if repo['id'] == selected_project_1 %}selected{% endif %}>
+                            {{ repo['name'] }}
+                        </option>
                     {% endfor %}
                 </select>
             </div> 
-
+        
             <!-- Dropdown Form 2-->
             <div class="col-md-6 me-3">
                 <label for="dropdown2" class="form-label">Select Project 2</label>
                 <select class="form-select" id="dropdown2" name="project_2">
-                    <!-- Cycles through repositores and displayes names of projects as selectable option -->
                     {% for index, repo in repos.iterrows() %}
-                        <option value="{{ repo['id'] }}">{{ repo['name'] }}</option>
+                        <option value="{{ repo['id'] }}" {% if repo['id'] == selected_project_2 %}selected{% endif %}>
+                            {{ repo['name'] }}
+                        </option>
+                        
                     {% endfor %}
                 </select>
             </div>
-
         </form>
+        
     </div>
     <!-- Comapre Button to Submit the form -->
     <div class="row">
