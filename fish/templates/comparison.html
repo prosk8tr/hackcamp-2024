@@ -47,23 +47,40 @@ Comparison
 
 <div class="container my-4">
     <div class="row">
+        <h3><u>File Sizes</u></h3>
         {{bar_graph|safe}}
     </div>
-    <div class="row">
+    <hr>
+    <div class="row my-5">
+        <h3><u>Commit Authors</u></h3>
         <!-- First Column -->
         <div class="col-md-6">
             <!-- Graphs for Project 1 -->
             <h3>{{project_1_title}}</h3>
             {{pie_chart_1|safe}}
-            {{histogram_1|safe}}  
         </div>
+
         <!-- Second Column -->
         <div class="col-md-6">
             <!-- Graphs for Project 2 -->
             <h3>{{project_2_title}}</h3>
             {{pie_chart_2|safe}}
-            {{histogram_2|safe}}
         </div>
+    </div>
+    <hr>
+    <div class = "row">
+        <h3><u>Commit History</u></h3>
+        <div class="col-md-6">
+            <!-- Graphs for Project 1 -->
+            <h3>{{project_1_title}}</h3>
+            {{histogram_1|safe}}  
+        </div>
+        <div class="col-md-6">
+            <!-- Graphs for Project 1 -->
+            <h3>{{project_2_title}}</h3>
+            {{histogram_2|safe}}  
+        </div>
+
     </div>
   </div>
 {% endblock %}
