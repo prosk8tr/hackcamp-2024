@@ -4,12 +4,13 @@ import pandas
 import plotly
 import plotly.express as px
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 import numpy as np
 
 class GraphDrawer:
     def draw_file_size(self,files): #draws a bar chart of the size of every file.
         #prepare the data; group into categories
-        bins = pandas.cut(files['line_count'], [0,50,100,500,1000,np.inf]) #sort all files into bins with ranges of line counts
+        bins = pandas.cut(files['functional_line_count'], [0,50,100,500,1000,np.inf]) #Don't count comments
         count = bins.value_counts() #returns the count of how many rows fit into each bin
         count=count.sort_index(ascending=True) #just makes sure the bars are sorted from lowest line count to highest
         count.index=['0-50','50-100','100-500','500-1000','1000+']
@@ -18,8 +19,7 @@ class GraphDrawer:
 
         # Create Bar chart
         fig = px.bar(file_size_data, x=file_size_data.index, y='count',  barmode='group')
-        fig.update_traces(marker_color="#CF7336", opacity=0.9) # decide the color of the bars in the chart
-
+        fig.update_traces(marker_color="#CF7336", opacity=0.9, hovertemplate='Lines of code: %{x} <br>Files: %{y}') # decide the color of the bars in the chart, set hover label text
 
         #TODO: find a way to make the axis names look less python-y
         fig.update_layout(xaxis_title='Lines of Code', yaxis_title='Number of Files')
@@ -35,7 +35,8 @@ class GraphDrawer:
         #TODO:switch between functional line count and all line count
 
     def draw_commit_authors(self,commits):
-        fig = px.pie(commits, values='id', names='author', color_discrete_sequence=px.colors.sequential.YlOrRd_r) #the last attribute decides the color of the pie chart
+        fig = px.pie(commits, values='id', names='author', color_discrete_sequence=px.colors.sequential.Oranges_r) #the last attribute decides the color of the pie chart
+        fig.update_traces(hovertemplate='Author: %{label}')
         fig.update_layout(
             {
                 "paper_bgcolor": "rgba(0, 0, 0, 0)",
@@ -44,12 +45,33 @@ class GraphDrawer:
             }
         )
         return fig
+    
+    def compare_commit_authors(self,project_1_commits,project_2_commits):#Create both pie charts together so they render at the same time.
+        fig1 = self.draw_commit_authors(project_1_commits)
+        fig2 = px.pie(project_2_commits, values='id', names='author', color_discrete_sequence=px.colors.sequential.YlOrRd_r)
+        fig2.update_traces(hovertemplate='Author: %{names}')
+        fig2.update_layout(
+            {
+                "paper_bgcolor": "rgba(0, 0, 0, 0)",
+                "plot_bgcolor": "rgba(0, 0, 0, 0)",
+                "font_color":"white",
+            }
+        )
+        
+        return [fig1.to_html(),fig2.to_html()] #Return both pie charts in a list so they can be used seperately
+    
+    def compare_commit_history(self,project_1_commits,project_2_commits):
+        fig1 = self.draw_commit_history(project_1_commits)
+        fig2 = self.draw_commit_history(project_2_commits)
+        fig2.update_traces(marker_color="#bc0128")
+
+        return [fig1.to_html(),fig2.to_html()]
 
     def compare_file_sizes(self,project_1_files,project_2_files):
         # Create bar charts
         fig1 = self.draw_file_size(project_1_files)
         fig2 = self.draw_file_size(project_2_files)
-        fig2.update_traces(marker_color="#bc0128",opacity=0.9)
+        fig2.update_traces(marker_color="#bc0128")
 
         #combine the graphs
         fig_combined = go.Figure(data = fig1.data + fig2.data)
@@ -68,8 +90,8 @@ class GraphDrawer:
     def draw_commit_history(self,commits):
         fig = px.histogram(commits, x="date")
         fig.update_traces(xbins_size="M1")
-        fig.update_traces(marker_color="#CF7336",opacity=0.9) # decide the color of the blocks of data in the graph
-        fig.update_layout(xaxis_title='Date', yaxis_title='Number of commits')
+        fig.update_traces(marker_color="#CF7336",opacity=0.9, hovertemplate='Date: %{x} <br>Commits: %{y}') # decide the color of the blocks of data in the graph
+        fig.update_layout(xaxis_title='Time', yaxis_title='Number of commits')
         fig.update_layout(
             {
                 "paper_bgcolor": "rgba(0, 0, 0, 0)",
