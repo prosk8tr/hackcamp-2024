@@ -26,6 +26,9 @@ then "flask run" (no quotes)
 
 # Project Fish
 **F -** File Size Analysis
+
 **I -** Insights through Innovation
+
 **S -** Source-Code Metrics
+
 **H -** Historical Comparisons
