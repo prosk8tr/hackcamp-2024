@@ -12,7 +12,7 @@ Comparison
 <div class="container my-4">
     <div class="row">
         <!-- Form used to select 2 projects to compare-->
-        <form method="POST" id="compare" name="compare" class="d-flex align-items-center">
+        <form method="POST" id="compare" name="compare" class="d-flex justify-content-center">
             <!-- Dropdown Form 1-->
             <div class="col-md-6 me-3">
                 <label for="dropdown1" class="form-label">Select Project 1</label>
@@ -39,12 +39,12 @@ Comparison
     </div>
     <!-- Comapre Button to Submit the form -->
     <div class="row">
-        <div class="d-grid gap-2 col-2 mx-auto my-2">
-            <button type="submit" form="compare">Compare</button>
+        <div class="d-grid gap-2 col-3 col-md-2 mx-auto my-2">
+            <button type="submit" form="compare" class="btn btn-dark hover-button">Compare</button>
         </div>
     </div> 
 </div>
-
+{% if project_1_title %}
 <div class="container my-4">
     <div class="row">
         <h3><u>File Sizes</u></h3>
@@ -83,4 +83,5 @@ Comparison
 
     </div>
   </div>
+  {% endif %}
 {% endblock %}
