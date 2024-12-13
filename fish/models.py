@@ -18,7 +18,7 @@ class GraphDrawer:
         file_size_data.index=file_size_data.index.astype(str)#so it can be turned into html string
 
         # Create Bar chart
-        fig = px.bar(file_size_data, x=file_size_data.index, y='count',  barmode='group')
+        fig = px.bar(file_size_data, x=file_size_data.index, y='count', barmode='group')
         fig.update_traces(marker_color="#CF7336", opacity=0.9, hovertemplate='Lines of code: %{x} <br>Files: %{y}') # decide the color of the bars in the chart, set hover label text
 
         #TODO: find a way to make the axis names look less python-y
@@ -74,7 +74,23 @@ class GraphDrawer:
         fig2.update_traces(marker_color="#bc0128")
 
         #combine the graphs
-        fig_combined = go.Figure(data = fig1.data + fig2.data)
+        fig_combined = go.Figure()
+        fig_combined.add_trace(go.Bar(
+            x=fig1.data[0].x, 
+            y=fig1.data[0].y, 
+            name='Project 1', 
+            marker_color="#CF7336",
+            opacity=0.9,
+            hovertemplate='Lines of code: %{x} <br>Files: %{y}'
+        ))
+        fig_combined.add_trace(go.Bar(
+            x=fig2.data[0].x, 
+            y=fig2.data[0].y, 
+            name='Project 2', 
+            marker_color="#bc0128",
+            opacity=0.9,
+            hovertemplate='Lines of code: %{x} <br>Files: %{y}'
+        ))
         fig_combined.update_layout(xaxis_title='Lines of Code', yaxis_title='Number of Files')
         fig_combined.update_layout(
             {
@@ -86,6 +102,7 @@ class GraphDrawer:
 
         return fig_combined.to_html() #return as html string, so it can be used in the view
         #TODO:switch between functional line count and all line count
+        
 
     def draw_commit_history(self,commits):
         fig = px.histogram(commits, x="date")
