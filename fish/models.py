@@ -4,12 +4,13 @@ import pandas
 import plotly
 import plotly.express as px
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 import numpy as np
 
 class GraphDrawer:
     def draw_file_size(self,files): #draws a bar chart of the size of every file.
         #prepare the data; group into categories
-        bins = pandas.cut(files['line_count'], [0,50,100,500,1000,np.inf]) #Don't count comments
+        bins = pandas.cut(files['line_count'], [0,50,100,500,1000,np.inf])
         count = bins.value_counts() #returns the count of how many rows fit into each bin
         count=count.sort_index(ascending=True) #just makes sure the bars are sorted from lowest line count to highest
         count.index=['0-50','50-100','100-500','500-1000','1000+']
@@ -36,6 +37,8 @@ class GraphDrawer:
     def draw_commit_authors(self,commits):
         fig = px.pie(commits, values='id', names='author', color_discrete_sequence=px.colors.sequential.Oranges_r) #the last attribute decides the color of the pie chart
         fig.update_traces(hovertemplate='Author: %{label} <br>Commits: %{value}')
+        fig = px.pie(commits, values='id', names='author', color_discrete_sequence=px.colors.sequential.Oranges_r) #the last attribute decides the color of the pie chart
+        fig.update_traces(hovertemplate='Author: %{label} <br>Commits: %{value}')
         fig.update_layout(
             {
                 "paper_bgcolor": "rgba(0, 0, 0, 0)",
@@ -48,7 +51,7 @@ class GraphDrawer:
     def compare_commit_authors(self,project_1_commits,project_2_commits):#Create both pie charts together so they render at the same time.
         fig1 = self.draw_commit_authors(project_1_commits)
         fig2 = px.pie(project_2_commits, values='id', names='author', color_discrete_sequence=px.colors.sequential.YlOrRd_r)
-        fig2.update_traces(hovertemplate='Author: %{names} <br>Commits: %{value}')
+        fig2.update_traces(hovertemplate='Author: %{label} <br>Commits: %{value}')
         fig2.update_layout(
             {
                 "paper_bgcolor": "rgba(0, 0, 0, 0)",
@@ -71,9 +74,26 @@ class GraphDrawer:
         fig1 = self.draw_file_size(project_1_files)
         fig2 = self.draw_file_size(project_2_files)
         fig2.update_traces(marker_color="#bc0128")
+        fig2.update_traces(marker_color="#bc0128")
 
         #combine the graphs
-        fig_combined = go.Figure(data = fig1.data + fig2.data)
+        fig_combined = go.Figure()
+        fig_combined.add_trace(go.Bar(
+            x=fig1.data[0].x, 
+            y=fig1.data[0].y, 
+            name='Project 1', 
+            marker_color="#CF7336",
+            opacity=0.9,
+            hovertemplate='Lines of code: %{x} <br>Files: %{y}'
+        ))
+        fig_combined.add_trace(go.Bar(
+            x=fig2.data[0].x, 
+            y=fig2.data[0].y, 
+            name='Project 2', 
+            marker_color="#bc0128",
+            opacity=0.9,
+            hovertemplate='Lines of code: %{x} <br>Files: %{y}'
+        ))
         fig_combined.update_layout(xaxis_title='Lines of Code', yaxis_title='Number of Files')
         fig_combined.update_layout(
             {
@@ -85,10 +105,13 @@ class GraphDrawer:
 
         return fig_combined.to_html() #return as html string, so it can be used in the view
         #TODO:switch between functional line count and all line count
+        
 
     def draw_commit_history(self,commits):
         fig = px.histogram(commits, x="date")
         fig.update_traces(xbins_size="M1")
+        fig.update_traces(marker_color="#CF7336",opacity=0.9, hovertemplate='Date: %{x} <br>Commits: %{y}') # decide the color of the blocks of data in the graph
+        fig.update_layout(xaxis_title='Time', yaxis_title='Number of commits')
         fig.update_traces(marker_color="#CF7336",opacity=0.9, hovertemplate='Date: %{x} <br>Commits: %{y}') # decide the color of the blocks of data in the graph
         fig.update_layout(xaxis_title='Time', yaxis_title='Number of commits')
         fig.update_layout(
@@ -98,7 +121,28 @@ class GraphDrawer:
                 "font_color":"white",
             }
         )
-        fig.update_layout(xaxis_rangeslider_visible=True)
+        fig.update_layout(xaxis_rangeslider_visible=True,
+                          updatemenus=[
+                              dict(
+                              buttons = [
+        dict(
+            args = ['xbins.size', ' 3600000.0'],
+            label = 'Hour',
+            method = 'restyle',
+        ), dict(
+            args = ['xbins.size', '86400000.0'],
+            label = 'Day',
+            method = 'restyle',
+        ), dict(
+            args = ['xbins.size', ' 604800000.0'],
+            label = 'Week',
+            method = 'restyle',
+        ), dict(
+            args = ['xbins.size', 'M1'],
+            label = 'Month',
+            method = 'restyle',
+        )]
+                          )])
         return fig
 
 class DbConnect:
