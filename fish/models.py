@@ -121,6 +121,7 @@ class GraphDrawer:
                 "font_color":"white",
             }
         )
+        #Add histogram drop down to choose how precise the histogram is:
         fig.update_layout(xaxis_rangeslider_visible=True,
                           updatemenus=[
                               dict(
