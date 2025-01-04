@@ -18,7 +18,7 @@ class GraphDrawer:
         file_size_data.index=file_size_data.index.astype(str)#so it can be turned into html string
 
         # Create Bar chart
-        fig = px.bar(file_size_data, x=file_size_data.index, y='count', barmode='group')
+        fig = px.bar(file_size_data, x=file_size_data.index, y='count',  barmode='group')
         fig.update_traces(marker_color="#CF7336", opacity=0.9, hovertemplate='Lines of code: %{x} <br>Files: %{y}') # decide the color of the bars in the chart, set hover label text
 
         #TODO: find a way to make the axis names look less python-y
@@ -35,6 +35,8 @@ class GraphDrawer:
         #TODO:switch between functional line count and all line count
 
     def draw_commit_authors(self,commits):
+        fig = px.pie(commits, values='id', names='author', color_discrete_sequence=px.colors.sequential.Oranges_r) #the last attribute decides the color of the pie chart
+        fig.update_traces(hovertemplate='Author: %{label} <br>Commits: %{value}')
         fig = px.pie(commits, values='id', names='author', color_discrete_sequence=px.colors.sequential.Oranges_r) #the last attribute decides the color of the pie chart
         fig.update_traces(hovertemplate='Author: %{label} <br>Commits: %{value}')
         fig.update_layout(
@@ -71,6 +73,7 @@ class GraphDrawer:
         # Create bar charts
         fig1 = self.draw_file_size(project_1_files)
         fig2 = self.draw_file_size(project_2_files)
+        fig2.update_traces(marker_color="#bc0128")
         fig2.update_traces(marker_color="#bc0128")
 
         #combine the graphs
@@ -109,6 +112,8 @@ class GraphDrawer:
         fig.update_traces(xbins_size="M1")
         fig.update_traces(marker_color="#CF7336",opacity=0.9, hovertemplate='Date: %{x} <br>Commits: %{y}') # decide the color of the blocks of data in the graph
         fig.update_layout(xaxis_title='Time', yaxis_title='Number of commits')
+        fig.update_traces(marker_color="#CF7336",opacity=0.9, hovertemplate='Date: %{x} <br>Commits: %{y}') # decide the color of the blocks of data in the graph
+        fig.update_layout(xaxis_title='Time', yaxis_title='Number of commits')
         fig.update_layout(
             {
                 "paper_bgcolor": "rgba(0, 0, 0, 0)",
@@ -116,7 +121,28 @@ class GraphDrawer:
                 "font_color":"white",
             }
         )
-        fig.update_layout(xaxis_rangeslider_visible=True)
+        fig.update_layout(xaxis_rangeslider_visible=True,
+                          updatemenus=[
+                              dict(
+                              buttons = [
+        dict(
+            args = ['xbins.size', ' 3600000.0'],
+            label = 'Hour',
+            method = 'restyle',
+        ), dict(
+            args = ['xbins.size', '86400000.0'],
+            label = 'Day',
+            method = 'restyle',
+        ), dict(
+            args = ['xbins.size', ' 604800000.0'],
+            label = 'Week',
+            method = 'restyle',
+        ), dict(
+            args = ['xbins.size', 'M1'],
+            label = 'Month',
+            method = 'restyle',
+        )]
+                          )])
         return fig
 
 class DbConnect:
@@ -167,4 +193,3 @@ class DbConnect:
             columns.append(col[0])
         all_commits = pandas.DataFrame(data=results,columns=columns)
         return all_commits
-
