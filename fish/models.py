@@ -125,6 +125,9 @@ class GraphDrawer:
         fig.update_layout(xaxis_rangeslider_visible=True,
                           updatemenus=[
                               dict(
+                                active = 3,
+                                bgcolor = "#212429",
+                                bordercolor = "#212429",
                               buttons = [
         dict(
             args = ['xbins.size', ' 3600000.0'],
@@ -144,7 +147,6 @@ class GraphDrawer:
             method = 'restyle',
         )]
                           )])
-        return fig
 
 class DbConnect:
     def __init__(self):
