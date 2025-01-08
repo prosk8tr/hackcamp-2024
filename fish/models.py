@@ -147,6 +147,7 @@ class GraphDrawer:
             method = 'restyle',
         )]
                           )])
+        return fig
 
 class DbConnect:
     def __init__(self):
